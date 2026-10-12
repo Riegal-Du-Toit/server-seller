@@ -1,0 +1,48 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import CtaWithTextMarquee from "@/components/ui/cta-with-text-marquee";
+import ClientTestimonials from "@/components/ui/client-testimonials";
+import { ProjectShowcase } from "@/components/ui/project-showcase";
+import HeroScrollSequence from "@/components/HeroScrollSequence";
+
+const whyItems = [
+  { title: "Performance", description: "Keep member-facing systems responsive when demand increases.", number: "01", image: "/section-images/why-performance.png" },
+  { title: "Scale", description: "Add capacity without rebuilding the technology behind your operation.", number: "02", image: "/section-images/why-scale.png" },
+  { title: "Security", description: "Protect policy, claims, and member information with layered controls.", number: "03", image: "/section-images/why-security.png" },
+  { title: "Recovery", description: "Keep critical data recoverable with dependable backup infrastructure.", number: "04", image: "/section-images/why-recovery.png" },
+  { title: "Reliability", description: "Give teams and customers a stable service they can trust every day.", number: "05", image: "/section-images/why-reliability.png" },
+];
+---
+
+<BaseLayout title="Server Selling | Launch managed servers fast">
+  <main class="min-h-screen bg-background text-foreground">
+    <HeroScrollSequence client:load />
+
+    <ProjectShowcase client:load />
+
+    <ProjectShowcase
+      client:load
+      id="why"
+      label="WHY"
+      eyebrow="Why this server"
+      heading="Five reasons to upgrade your infrastructure."
+      items={whyItems}
+    />
+
+    <ClientTestimonials client:load />
+
+    <CtaWithTextMarquee client:load />
+
+    <footer class="bg-white">
+      <div class="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 text-sm text-slate-600 md:flex-row md:items-center md:justify-between md:px-8">
+        <p class="font-semibold text-slate-950">Server Selling</p>
+        <nav class="flex flex-wrap gap-x-6 gap-y-3" aria-label="Footer navigation">
+          <a class="transition hover:text-sky-700" href="#services">Features</a>
+          <a class="transition hover:text-sky-700" href="#why">Why us</a>
+          <a class="transition hover:text-sky-700" href="#contact">Contact</a>
+        </nav>
+        <p>&copy; {new Date().getFullYear()} Server Selling.</p>
+      </div>
+    </footer>
+  </main>
+</BaseLayout>
