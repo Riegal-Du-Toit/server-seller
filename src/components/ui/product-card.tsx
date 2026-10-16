@@ -52,7 +52,7 @@ export const ProductHighlightCard = React.forwardRef<HTMLDivElement, ProductHigh
             style={{ transform: "translateZ(72px) rotate(-7deg)", transformStyle: "preserve-3d" }}
           >
             <div className="absolute bottom-0 left-[12%] h-4 w-[76%] rounded-full bg-blue-700/25 blur-md" style={{ transform: "translateZ(-20px)" }} />
-            <img src={imageSrc} alt={imageAlt} className="relative h-full w-full object-contain object-bottom-right drop-shadow-[0_16px_12px_rgba(30,64,175,0.35)]" />
+            <img src={imageSrc} alt={imageAlt} loading="lazy" decoding="async" className="relative h-full w-full object-contain object-bottom-right drop-shadow-[0_16px_12px_rgba(30,64,175,0.35)]" />
           </div>
         </div>
       </div>

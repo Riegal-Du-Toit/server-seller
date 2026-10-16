@@ -3,9 +3,11 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 const testimonials = [
-  { quote: "Our policy systems stayed responsive during the busiest renewal period we have ever handled.", author: "Operations Director", role: "Member Services", category: "Member Services" },
-  { quote: "A more dependable platform gave our claims team the confidence to move faster every day.", author: "Technology Lead", role: "Claims Operations", category: "Claims Operations" },
-  { quote: "We gained capacity without adding complexity for the people managing the platform.", author: "Infrastructure Manager", role: "Policy Administration", category: "Policy Administration" },
+  { quote: "Policy applications, intermediary workflows, customer management, finance and claims processes.", author: "Insurance & Financial Services", role: "Built for connected operations", category: "Industry Solutions" },
+  { quote: "Member onboarding, provider workflows, authorisations and benefit administration.", author: "Healthcare & Benefits", role: "Built for connected operations", category: "Industry Solutions" },
+  { quote: "Digital customer acquisition, loan application journeys, document collection and review handovers.", author: "Lending & Credit", role: "Built for connected operations", category: "Industry Solutions" },
+  { quote: "Member registrations, recurring contributions, renewals and administration.", author: "Membership Organisations", role: "Built for connected operations", category: "Industry Solutions" },
+  { quote: "Adapt Kervox to customer-focused businesses that need connected sales and operational workflows.", author: "Other Enterprises", role: "Built for connected operations", category: "Industry Solutions" },
 ];
 
 const sectionFont = "'Arial Black', 'Arial Narrow Bold', Impact, sans-serif";
@@ -41,7 +43,7 @@ export default function ClientTestimonials() {
       }}>
         <aside className="flex justify-center border-r border-slate-200 pr-4 md:pr-7">
           <p className="rotate-180 text-[64px] font-black italic leading-none text-blue-600 [writing-mode:vertical-rl] md:text-[80px]" style={{ fontFamily: sectionFont }}>
-            CLIENTS
+            SOLUTIONS
           </p>
         </aside>
 

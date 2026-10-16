@@ -21,6 +21,15 @@
   --radius: 0.5rem;
 }
 
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
 * {
   border-color: hsl(var(--border));
 }
