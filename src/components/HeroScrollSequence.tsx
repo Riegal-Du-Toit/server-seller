@@ -38,7 +38,7 @@ export default function HeroScrollSequence() {
 
   return (
     <section ref={sectionRef} className="h-[700vh] bg-white">
-      <div className="sticky top-0 h-screen overflow-hidden bg-[#eef7ff]">
+      <div className="sticky top-0 h-screen overflow-hidden bg-white">
         <img src="/hero-bg.png" alt="Kervox connected business platform" loading="eager" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover lg:translate-x-[2.4%] lg:-translate-y-[11%] lg:scale-[1.12]" />
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white/50 lg:hidden" />
         <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 hidden w-[58%] bg-[linear-gradient(90deg,rgba(255,255,255,0.95)_0%,rgba(255,255,255,0.90)_60%,transparent_100%)] lg:block" />
