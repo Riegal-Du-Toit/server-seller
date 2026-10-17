@@ -6,16 +6,28 @@ import { ProjectShowcase } from "@/components/ui/project-showcase";
 import HeroScrollSequence from "@/components/HeroScrollSequence";
 
 const whyItems = [
-  { title: "One Customer Journey", description: "Connect marketing, sales, applications, onboarding and ongoing management.", number: "01", image: "/section-images/why-performance.png" },
-  { title: "One Operational Platform", description: "Give different departments the tools they need while keeping workflows connected.", number: "02", image: "/section-images/why-scale.png" },
-  { title: "One Source of Information", description: "Reduce duplicated records and unnecessary manual data handling.", number: "03", image: "/section-images/why-security.png" },
-  { title: "Built Around Your Business", description: "Configure workflows, departments and processes around your operating model.", number: "04", image: "/section-images/why-recovery.png" },
-  { title: "One Connected Foundation", description: "One platform instead of disconnected processes.", number: "05", image: "/section-images/why-reliability.png" },
+  { title: "Marketing", tagline: "More Sales. Less Friction.", description: "Turn marketing traffic into completed applications with conversion-focused funnels and streamlined customer journeys.", number: "01", image: "/section-images/why-performance.png" },
+  { title: "Funnels", tagline: "Applications in Under 60 Seconds.", description: "Make it easier for customers to apply with fast digital forms, automatic or manual approvals, and structured onboarding.", number: "02", image: "/section-images/why-scale.png" },
+  { title: "Applications", tagline: "Automate the Work Behind Every Sale.", description: "Reduce repetitive administration with automated handovers, approval workflows, customer records and payment processes.", number: "03", image: "/section-images/why-security.png" },
+  { title: "Management", tagline: "Get Paid. Stay in Control.", description: "Manage debit orders, payment collections, reconciliation and customer accounts from one connected platform.", number: "04", image: "/section-images/why-recovery.png" },
+  { title: "Database & Finance", tagline: "Turn Your Database Into Growth.", description: "Manage existing members, identify upsell opportunities, reactivate customers and track performance through reporting dashboards.", number: "05", image: "/section-images/why-reliability.png" },
 ];
 ---
 
 <BaseLayout title="Kervox | One Platform. Total Control." description="Kervox connects every stage of your business into one operating platform.">
+  <a href="#services" class="sr-only z-50 rounded-lg bg-white px-4 py-3 font-semibold text-blue-700 focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:shadow-lg">Skip to platform details</a>
   <main class="min-h-screen bg-background text-foreground">
+    <header class="absolute inset-x-0 top-0 z-40 px-5 py-5 md:px-8">
+      <div class="mx-auto flex max-w-7xl items-center justify-between">
+        <a href="/" class="text-lg font-bold tracking-[0.16em] text-slate-950">KERVOX</a>
+        <nav class="hidden items-center gap-7 text-sm font-medium text-slate-700 md:flex" aria-label="Primary navigation">
+          <a class="transition hover:text-blue-700" href="#services">Platform</a>
+          <a class="transition hover:text-blue-700" href="#why">Why Kervox</a>
+          <a class="rounded-full bg-blue-600 px-5 py-2.5 text-white transition hover:bg-blue-700" href="#contact">Book a Demo</a>
+        </nav>
+        <a class="rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white md:hidden" href="#contact">Book Demo</a>
+      </div>
+    </header>
     <HeroScrollSequence client:load />
 
     <ProjectShowcase
@@ -29,9 +41,14 @@ const whyItems = [
       client:load
       id="why"
       label="WHY KERVOX"
-      eyebrow="The problem with disconnected systems"
-      heading="Your Business Shouldn't Have to Work in Pieces."
+      eyebrow="WHY BUSINESSES CHOOSE KERVOX"
+      heading="Stop Losing Sales to Slow, Disconnected Systems."
+      intro={[
+        "Every unnecessary step costs time. Every missed follow-up risks a sale. Every manual process slows your growth.",
+        "Kervox connects your entire customer journey, from first contact to payment collection and ongoing management.",
+      ]}
       items={whyItems}
+      closing="More customers. Faster onboarding. Smarter operations. One platform."
     />
 
     <ClientTestimonials client:load />
@@ -45,6 +62,7 @@ const whyItems = [
           <a class="transition hover:text-sky-700" href="#services">Platform</a>
           <a class="transition hover:text-sky-700" href="#why">Why Kervox</a>
           <a class="transition hover:text-sky-700" href="#contact">Book a Demo</a>
+          <a class="transition hover:text-sky-700" href="/privacy">Privacy</a>
         </nav>
         <p>&copy; 2026 Kervox. All rights reserved.</p>
       </div>

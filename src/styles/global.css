@@ -26,6 +26,10 @@ html {
   scrollbar-width: none;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
 html::-webkit-scrollbar {
   display: none;
 }

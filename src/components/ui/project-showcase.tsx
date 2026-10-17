@@ -2,10 +2,10 @@
 
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
 
 export interface ShowcaseItem {
   title: string;
+  tagline?: string;
   description: string;
   number: string;
   image: string;
@@ -27,6 +27,8 @@ interface ProjectShowcaseProps {
   eyebrow?: string;
   heading?: string;
   items?: ShowcaseItem[];
+  intro?: string[];
+  closing?: string;
 }
 
 export function ProjectShowcase({
@@ -35,27 +37,33 @@ export function ProjectShowcase({
   eyebrow = "The complete business operating platform",
   heading = "Every stage of your business. Connected.",
   items = defaultFeatures,
+  intro,
+  closing,
 }: ProjectShowcaseProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 });
+  const positionRef = useRef({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
 
   useEffect(() => {
+    if (hoveredIndex === null) return;
     const animate = () => {
-      setSmoothPosition((previous) => ({
-        x: previous.x + (mousePosition.x - previous.x) * 0.15,
-        y: previous.y + (mousePosition.y - previous.y) * 0.15,
-      }));
-      animationRef.current = requestAnimationFrame(animate);
+      const previous = positionRef.current;
+      const deltaX = mousePosition.x - previous.x;
+      const deltaY = mousePosition.y - previous.y;
+      const settled = Math.abs(deltaX) < 0.25 && Math.abs(deltaY) < 0.25;
+      positionRef.current = settled ? mousePosition : { x: previous.x + deltaX * 0.15, y: previous.y + deltaY * 0.15 };
+      setSmoothPosition(positionRef.current);
+      if (!settled) animationRef.current = requestAnimationFrame(animate);
     };
 
     animationRef.current = requestAnimationFrame(animate);
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [mousePosition]);
+  }, [hoveredIndex, mousePosition]);
 
   const handleMouseMove = (event: React.MouseEvent) => {
     const bounds = containerRef.current?.getBoundingClientRect();
@@ -71,8 +79,9 @@ export function ProjectShowcase({
         </aside>
 
         <div ref={containerRef} onMouseMove={handleMouseMove} className="relative w-full max-w-2xl justify-self-center text-center">
-          <h2 className="text-sm font-medium uppercase text-slate-500">{eyebrow}</h2>
-          <p className="mx-auto mt-3 max-w-xl text-2xl font-semibold text-slate-950 md:text-4xl">{heading}</p>
+          <p className="text-sm font-medium uppercase text-slate-500">{eyebrow}</p>
+          <h2 className="mx-auto mt-3 max-w-xl text-2xl font-semibold text-slate-950 md:text-4xl">{heading}</h2>
+          {intro && <div className="mx-auto mt-6 max-w-2xl space-y-3 text-sm leading-6 text-slate-600 md:text-base md:leading-7">{intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>}
 
           <div
             className="pointer-events-none fixed z-50 hidden overflow-hidden rounded-xl border border-blue-100 bg-blue-50 shadow-2xl md:block"
@@ -99,11 +108,11 @@ export function ProjectShowcase({
                 <div className="relative flex items-start justify-between gap-4 max-[480px]:flex-wrap">
                   <img src={feature.image} alt="" loading="lazy" decoding="async" className="h-16 w-16 shrink-0 rounded-lg border border-white/80 object-contain shadow-sm max-[480px]:h-14 max-[480px]:w-14 md:h-20 md:w-20" />
                   <div className="min-w-0 flex-1 max-[480px]:order-3 max-[480px]:w-full max-[480px]:flex-none">
-                    <div className="inline-flex items-center gap-2">
+                    <div className="inline-flex flex-wrap items-baseline gap-x-2 gap-y-1">
                       <h3 className="min-w-0 break-words text-xl font-black italic text-blue-600 sm:text-2xl" style={{ fontFamily: sectionFont }}>
                         <span className="relative">{feature.title}<span className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300 ${hoveredIndex === index ? "w-full" : "w-0"}`} /></span>
                       </h3>
-                      <ArrowUpRight className={`h-5 w-5 text-blue-600 transition-all duration-300 ${hoveredIndex === index ? "translate-x-0 translate-y-0 opacity-100" : "-translate-x-2 translate-y-2 opacity-0"}`} />
+                      {feature.tagline && <p className="text-sm font-semibold leading-5 text-slate-950 sm:text-base">— {feature.tagline}</p>}
                     </div>
                     <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">{feature.description}</p>
                   </div>
@@ -112,6 +121,7 @@ export function ProjectShowcase({
               </div>
             ))}
           </div>
+          {closing && <p className="mx-auto mt-10 max-w-2xl text-xl font-semibold leading-8 text-slate-950 md:text-2xl">{closing}</p>}
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
@@ -24,11 +24,6 @@ export default function ClientTestimonials() {
 
   const goNext = () => setActiveIndex((current) => (current + 1) % testimonials.length);
   const goPrevious = () => setActiveIndex((current) => (current - 1 + testimonials.length) % testimonials.length);
-
-  useEffect(() => {
-    const timer = window.setInterval(goNext, 6000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   const current = testimonials[activeIndex];
 
@@ -60,7 +55,7 @@ export default function ClientTestimonials() {
               </span>
             </div>
 
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
               <motion.blockquote key={activeIndex} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.45 }}>
                 <p id="clients-heading" className="text-3xl font-medium leading-tight text-slate-950 md:text-5xl">
                   &ldquo;{current.quote}&rdquo;
@@ -69,7 +64,7 @@ export default function ClientTestimonials() {
             </AnimatePresence>
 
             <div className="mt-12 flex flex-wrap items-end justify-between gap-8">
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="wait" initial={false}>
                 <motion.div key={activeIndex} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.35, delay: 0.1 }} className="flex items-center gap-4">
                   <span className="h-px w-9 bg-blue-600" />
                   <div>
@@ -80,10 +75,10 @@ export default function ClientTestimonials() {
               </AnimatePresence>
 
               <div className="flex items-center gap-3">
-                <button type="button" onClick={goPrevious} aria-label="Previous testimonial" className="grid h-11 w-11 place-items-center rounded-full border border-slate-300 text-slate-700 transition hover:border-blue-600 hover:bg-blue-600 hover:text-white">
+                <button type="button" onClick={goPrevious} aria-label="Previous industry solution" className="grid h-11 w-11 place-items-center rounded-full border border-slate-300 text-slate-700 transition hover:border-blue-600 hover:bg-blue-600 hover:text-white">
                   <ArrowLeft className="h-4 w-4" />
                 </button>
-                <button type="button" onClick={goNext} aria-label="Next testimonial" className="grid h-11 w-11 place-items-center rounded-full border border-slate-300 text-slate-700 transition hover:border-blue-600 hover:bg-blue-600 hover:text-white">
+                <button type="button" onClick={goNext} aria-label="Next industry solution" className="grid h-11 w-11 place-items-center rounded-full border border-slate-300 text-slate-700 transition hover:border-blue-600 hover:bg-blue-600 hover:text-white">
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </div>

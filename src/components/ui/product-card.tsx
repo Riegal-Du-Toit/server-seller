@@ -5,13 +5,14 @@ interface ProductHighlightCardProps extends React.HTMLAttributes<HTMLDivElement>
   categoryIcon: React.ReactNode;
   category: string;
   title: string;
+  tagline?: string;
   description: string;
   imageSrc: string;
   imageAlt: string;
 }
 
 export const ProductHighlightCard = React.forwardRef<HTMLDivElement, ProductHighlightCardProps>(
-  ({ categoryIcon, category, title, description, imageSrc, imageAlt, className, ...props }, ref) => {
+  ({ categoryIcon, category, title, tagline, description, imageSrc, imageAlt, className, ...props }, ref) => {
     const [tilt, setTilt] = React.useState({ x: 0, y: 0 });
 
     const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -41,12 +42,13 @@ export const ProductHighlightCard = React.forwardRef<HTMLDivElement, ProductHigh
             <span>{category}</span>
           </div>
           <h2
-            className="relative z-10 mt-5 max-w-[11rem] text-4xl font-black italic leading-none text-blue-600"
+            className="relative z-10 mt-4 max-w-[15rem] text-2xl font-black italic leading-tight text-blue-600"
             style={{ fontFamily: "'Arial Black', 'Arial Narrow Bold', Impact, sans-serif" }}
           >
             {title}
           </h2>
-          <p className="relative z-10 mt-4 max-w-[12rem] text-sm leading-6 text-slate-600">{description}</p>
+          {tagline && <p className="relative z-10 mt-1 max-w-[15rem] text-xs font-semibold leading-5 text-slate-950">{tagline}</p>}
+          <p className="relative z-10 mt-3 max-w-[13rem] text-xs leading-5 text-slate-600">{description}</p>
           <div
             className="absolute bottom-6 right-5 h-[46%] w-[46%] transition-transform duration-300 group-hover:scale-110"
             style={{ transform: "translateZ(72px) rotate(-7deg)", transformStyle: "preserve-3d" }}

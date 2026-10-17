@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
+    "start": "node scripts/server.mjs",
+    "test:demo-api": "node scripts/test-demo-api.mjs",
     "preview": "astro preview",
     "check": "astro check"
   },

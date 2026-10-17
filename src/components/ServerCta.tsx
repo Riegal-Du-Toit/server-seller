@@ -15,7 +15,7 @@ export default function ServerCta() {
           </p>
         </div>
         <Button asChild size="lg" className="bg-sky-600 text-white hover:bg-sky-700">
-          <a href="mailto:sales@example.com">Talk to sales <ArrowRight className="h-4 w-4" /></a>
+          <a href="/#contact">Book a demo <ArrowRight className="h-4 w-4" /></a>
         </Button>
       </div>
     </section>
