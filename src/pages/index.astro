@@ -20,12 +20,6 @@ const whyItems = [
     <header class="absolute inset-x-0 top-0 z-40 px-5 py-5 md:px-8">
       <div class="mx-auto flex max-w-7xl items-center justify-between">
         <a href="/" class="text-lg font-bold tracking-[0.16em] text-slate-950">KERVOX</a>
-        <nav class="hidden items-center gap-7 text-sm font-medium text-slate-700 md:flex" aria-label="Primary navigation">
-          <a class="transition hover:text-blue-700" href="#services">Platform</a>
-          <a class="transition hover:text-blue-700" href="#why">Why Kervox</a>
-          <a class="rounded-full bg-blue-600 px-5 py-2.5 text-white transition hover:bg-blue-700" href="#contact">Book a Demo</a>
-        </nav>
-        <a class="rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white md:hidden" href="#contact">Book Demo</a>
       </div>
     </header>
     <HeroScrollSequence client:load />
@@ -48,6 +42,7 @@ const whyItems = [
         "Kervox connects your entire customer journey, from first contact to payment collection and ongoing management.",
       ]}
       items={whyItems}
+      showTitles={false}
       closing="More customers. Faster onboarding. Smarter operations. One platform."
     />
 

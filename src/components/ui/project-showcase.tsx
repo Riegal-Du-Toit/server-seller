@@ -12,11 +12,11 @@ export interface ShowcaseItem {
 }
 
 const defaultFeatures: ShowcaseItem[] = [
-  { title: "Campaigns", description: "Launch targeted campaigns, capture interest and connect your marketing directly to your sales pipeline.", number: "01", image: "/section-images/feature-campaign.png" },
+  { title: "Marketing", description: "Launch targeted campaigns, capture interest and connect your marketing directly to your sales pipeline.", number: "01", image: "/section-images/feature-campaign.png" },
   { title: "Funnels", description: "Create guided digital experiences that move customers from interest to action, without unnecessary steps or complicated processes.", number: "02", image: "/section-images/feature-funnel.png" },
   { title: "Applications", description: "Replace complicated paperwork and disconnected forms with structured digital applications designed for a smoother customer experience.", number: "03", image: "/section-images/feature-application.png" },
-  { title: "CRM", description: "Give your teams one place to manage customer relationships, applications, follow-ups and ongoing service.", number: "04", image: "/section-images/feature-crm.png" },
-  { title: "Database", description: "Bring customer information, operational records and business workflows together through a centralised data foundation.", number: "05", image: "/section-images/feature-database.png" },
+  { title: "Management", description: "Give your teams one place to manage customer relationships, applications, follow-ups and ongoing service.", number: "04", image: "/section-images/feature-crm.png" },
+  { title: "Database & Finance", description: "Bring customer information, operational records and business workflows together through a centralised data foundation.", number: "05", image: "/section-images/feature-database.png" },
 ];
 
 const sectionFont = "'Arial Black', 'Arial Narrow Bold', Impact, sans-serif";
@@ -29,6 +29,7 @@ interface ProjectShowcaseProps {
   items?: ShowcaseItem[];
   intro?: string[];
   closing?: string;
+  showTitles?: boolean;
 }
 
 export function ProjectShowcase({
@@ -39,6 +40,7 @@ export function ProjectShowcase({
   items = defaultFeatures,
   intro,
   closing,
+  showTitles = true,
 }: ProjectShowcaseProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -109,10 +111,10 @@ export function ProjectShowcase({
                   <img src={feature.image} alt="" loading="lazy" decoding="async" className="h-16 w-16 shrink-0 rounded-lg border border-white/80 object-contain shadow-sm max-[480px]:h-14 max-[480px]:w-14 md:h-20 md:w-20" />
                   <div className="min-w-0 flex-1 max-[480px]:order-3 max-[480px]:w-full max-[480px]:flex-none">
                     <div className="inline-flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                      <h3 className="min-w-0 break-words text-xl font-black italic text-blue-600 sm:text-2xl" style={{ fontFamily: sectionFont }}>
+                      {showTitles && <h3 className="min-w-0 break-words text-xl font-black italic text-blue-600 sm:text-2xl" style={{ fontFamily: sectionFont }}>
                         <span className="relative">{feature.title}<span className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300 ${hoveredIndex === index ? "w-full" : "w-0"}`} /></span>
-                      </h3>
-                      {feature.tagline && <p className="text-sm font-semibold leading-5 text-slate-950 sm:text-base">— {feature.tagline}</p>}
+                      </h3>}
+                      {feature.tagline && <p className="text-sm font-semibold leading-5 text-slate-950 sm:text-base">{showTitles && "— "}{feature.tagline}</p>}
                     </div>
                     <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">{feature.description}</p>
                   </div>

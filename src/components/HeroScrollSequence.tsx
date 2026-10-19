@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { ProductHighlightCard } from "@/components/ui/product-card";
 
 const cards = [
-  { title: "Marketing", tagline: "More Sales. Less Friction.", description: "Turn marketing traffic into completed applications with conversion-focused funnels and streamlined customer journeys.", icon: "/service-icons/campaign.png", angle: -4 },
-  { title: "Funnels", tagline: "Applications in Under 60 Seconds.", description: "Make it easier for customers to apply with fast digital forms, automatic or manual approvals, and structured onboarding.", icon: "/service-icons/funnel.png", angle: 3 },
-  { title: "Applications", tagline: "Automate the Work Behind Every Sale.", description: "Reduce repetitive administration with automated handovers, approval workflows, customer records and payment processes.", icon: "/service-icons/application.png", angle: -2 },
-  { title: "Management", tagline: "Get Paid. Stay in Control.", description: "Manage debit orders, payment collections, reconciliation and customer accounts from one connected platform.", icon: "/service-icons/crm.png", angle: 5 },
-  { title: "Database & Finance", tagline: "Turn Your Database Into Growth.", description: "Manage existing members, identify upsell opportunities, reactivate customers and track performance through reporting dashboards.", icon: "/service-icons/database.png", angle: -3 },
+  { title: "Marketing", tagline: "More Sales. Less Friction.", description: "Manage campaigns, track leads and measure performance from one marketing dashboard.", icon: "/service-icons/campaign.png", angle: -4 },
+  { title: "Funnels", tagline: "Applications in Under 60 Seconds.", description: "High-converting funnels designed to guide visitors from interest to application.", icon: "/service-icons/funnel.png", angle: 3 },
+  { title: "Applications", tagline: "Automate the Work Behind Every Sale.", description: "Fast digital applications with automatic or manual approvals and seamless onboarding.", icon: "/service-icons/application.png", angle: -2 },
+  { title: "Management", tagline: "Get Paid. Stay in Control.", description: "Manage profiles, policies, payments, renewals, communications and customer relationships.", icon: "/service-icons/crm.png", angle: 5 },
+  { title: "Database & Finance", tagline: "Turn Your Database Into Growth.", description: "Centralised data, payment collections, automated handovers, reconciliation and reporting.", icon: "/service-icons/database.png", angle: -3 },
 ];
 
 export default function HeroScrollSequence() {
@@ -35,7 +35,7 @@ export default function HeroScrollSequence() {
   return (
     <section ref={sectionRef} className="h-[700vh] bg-white">
       <div className="sticky top-0 h-screen overflow-hidden bg-white">
-        <img src="/hero-bg.png" alt="Kervox connected business platform" loading="eager" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover lg:translate-x-[2.4%] lg:-translate-y-[11%] lg:scale-[1.12]" />
+        <img src="/hero-bg-no-beams.png" alt="Kervox connected business platform" loading="eager" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover lg:translate-x-[2.4%] lg:-translate-y-[11%] lg:scale-[1.12]" />
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white/50 lg:hidden" />
         <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 hidden w-[58%] bg-[linear-gradient(90deg,rgba(255,255,255,0.95)_0%,rgba(255,255,255,0.90)_60%,transparent_100%)] lg:block" />
         <div className="absolute left-[5.7vw] top-[max(5.5rem,12svh)] z-30 w-[min(88vw,720px)] md:top-[22vh] lg:top-[23vh]" inert={headingProgress >= 0.99} style={{ opacity: 1 - headingProgress, transform: `translateX(${-headingProgress * 130}vw)`, pointerEvents: headingProgress >= 0.99 ? "none" : "auto" }}>
