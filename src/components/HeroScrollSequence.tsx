@@ -36,8 +36,8 @@ export default function HeroScrollSequence() {
     <section ref={sectionRef} className="h-[700vh] bg-white">
       <div className="sticky top-0 h-screen overflow-hidden bg-white">
         <img src="/hero-bg-no-beams.png" alt="Kervox connected business platform" loading="eager" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover lg:translate-x-[2.4%] lg:-translate-y-[11%] lg:scale-[1.12]" />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white/50 lg:hidden" />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 hidden w-[58%] bg-[linear-gradient(90deg,rgba(255,255,255,0.95)_0%,rgba(255,255,255,0.90)_60%,transparent_100%)] lg:block" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white/50 lg:hidden" style={{ opacity: 1 - headingProgress }} />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 hidden w-[58%] bg-[linear-gradient(90deg,rgba(255,255,255,0.95)_0%,rgba(255,255,255,0.90)_60%,transparent_100%)] lg:block" style={{ opacity: 1 - headingProgress }} />
         <div className="absolute left-[5.7vw] top-[max(5.5rem,12svh)] z-30 w-[min(88vw,720px)] md:top-[22vh] lg:top-[23vh]" inert={headingProgress >= 0.99} style={{ opacity: 1 - headingProgress, transform: `translateX(${-headingProgress * 130}vw)`, pointerEvents: headingProgress >= 0.99 ? "none" : "auto" }}>
           <p className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-700 sm:text-[11px] lg:text-xs">
             The complete customer acquisition &amp; management platform
@@ -68,12 +68,12 @@ export default function HeroScrollSequence() {
           </svg>
         </a>
 
-        <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 h-[300px] w-[min(80vw,300px)] -translate-x-1/2 -translate-y-1/2 md:left-20 md:h-[350px] md:w-[350px] md:translate-x-0 lg:left-28">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 h-[325px] w-[min(100vw,443.75px)] -translate-x-1/2 -translate-y-1/2 md:left-20 md:w-[443.75px] md:translate-x-0 lg:left-28">
           {cards.map((card, index) => {
             const offset = index - cardStep;
             const opacity = Math.max(0, 1 - Math.abs(offset));
             return (
-              <div key={card.title} className="absolute inset-0" style={{ opacity, transform: `translateY(${-offset * 125}%) rotate(${card.angle}deg)`, pointerEvents: opacity > 0.8 ? "auto" : "none" }}>
+              <div key={card.title} className="absolute inset-0" style={{ opacity, transform: `translateY(${-offset * 125}%) rotate(${card.angle}deg) scale(0.8)`, pointerEvents: opacity > 0.8 ? "auto" : "none" }}>
                 <ProductHighlightCard
                   className="h-full w-full"
                   categoryIcon={<img src={card.icon} alt="" loading="lazy" decoding="async" className="h-6 w-6 object-contain" />}
