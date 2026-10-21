@@ -16,8 +16,10 @@ export default function CtaWithTextMarquee() {
           <p className="mt-6 max-w-lg text-base leading-7 text-slate-600 md:text-lg">
             Whether you're replacing manual processes, connecting existing systems or building a digital operation from the ground up, Kervox gives you a foundation to build on.
           </p>
-          <p className="mt-8 text-sm font-semibold text-blue-700">What happens next</p>
-          <ol className="mt-3 space-y-2 text-sm leading-6 text-slate-600"><li>1. We review your goals.</li><li>2. We arrange a suitable time.</li><li>3. You see the workflows relevant to your business.</li></ol>
+          <div className="mt-9 max-w-lg border-l-2 border-blue-600 pl-4">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-blue-700">From $$$ / month</p>
+            <p className="mt-2 text-sm font-semibold leading-6 text-slate-700">A dedicated workspace for your team. Never shared.</p>
+          </div>
         </div>
         <div className="border-l border-slate-100 bg-white px-5 py-12 md:px-12 lg:flex lg:items-center lg:py-20"><DemoRequestForm /></div>
       </div>

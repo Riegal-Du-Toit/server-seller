@@ -14,11 +14,11 @@ export interface ShowcaseItem {
 }
 
 const defaultFeatures: ShowcaseItem[] = [
-  { title: "Marketing", description: "Launch targeted campaigns, capture interest and connect your marketing directly to your sales pipeline.", number: "01", image: "/section-images/marketing.PNG", icon: "/section-images/feature-campaign.png" },
-  { title: "Funnels", description: "Create guided digital experiences that move customers from interest to action, without unnecessary steps or complicated processes.", number: "02", image: "/section-images/funnel.PNG", icon: "/section-images/feature-funnel.png" },
-  { title: "Applications", description: "Replace complicated paperwork and disconnected forms with structured digital applications designed for a smoother customer experience.", number: "03", image: "/section-images/application.PNG", icon: "/section-images/feature-application.png" },
-  { title: "Management", description: "Give your teams one place to manage customer relationships, applications, follow-ups and ongoing service.", number: "04", image: "/section-images/managment.PNG", icon: "/section-images/feature-crm.png" },
-  { title: "Database & Finance", description: "Bring customer information, operational records and business workflows together through a centralised data foundation.", number: "05", image: "/section-images/dtabse.PNG", icon: "/section-images/feature-database.png" },
+  { title: "Marketing", description: "Launch targeted campaigns, capture interest and connect your marketing directly to your sales pipeline.", number: "01", image: "/section-images/marketing.png", icon: "/section-images/feature-campaign.png" },
+  { title: "Funnels", description: "Create guided digital experiences that move customers from interest to action, without unnecessary steps or complicated processes.", number: "02", image: "/section-images/funnel.png", icon: "/section-images/feature-funnel.png" },
+  { title: "Applications", description: "Replace complicated paperwork and disconnected forms with structured digital applications designed for a smoother customer experience.", number: "03", image: "/section-images/application.png", icon: "/section-images/feature-application.png" },
+  { title: "Management", description: "Give your teams one place to manage customer relationships, applications, follow-ups and ongoing service.", number: "04", image: "/section-images/management.png", icon: "/section-images/feature-crm.png" },
+  { title: "Database & Finance", description: "Bring customer information, operational records and business workflows together through a centralised data foundation.", number: "05", image: "/section-images/database.png", icon: "/section-images/feature-database.png" },
 ];
 
 const sectionFont = "'Arial Black', 'Arial Narrow Bold', Impact, sans-serif";
