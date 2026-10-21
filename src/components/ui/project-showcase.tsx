@@ -2,6 +2,7 @@
 
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
+import AnimatedUnderlineText from "@/components/AnimatedUnderlineText";
 
 export interface ShowcaseItem {
   title: string;
@@ -9,14 +10,15 @@ export interface ShowcaseItem {
   description: string;
   number: string;
   image: string;
+  icon?: string;
 }
 
 const defaultFeatures: ShowcaseItem[] = [
-  { title: "Marketing", description: "Launch targeted campaigns, capture interest and connect your marketing directly to your sales pipeline.", number: "01", image: "/section-images/feature-campaign.png" },
-  { title: "Funnels", description: "Create guided digital experiences that move customers from interest to action, without unnecessary steps or complicated processes.", number: "02", image: "/section-images/feature-funnel.png" },
-  { title: "Applications", description: "Replace complicated paperwork and disconnected forms with structured digital applications designed for a smoother customer experience.", number: "03", image: "/section-images/feature-application.png" },
-  { title: "Management", description: "Give your teams one place to manage customer relationships, applications, follow-ups and ongoing service.", number: "04", image: "/section-images/feature-crm.png" },
-  { title: "Database & Finance", description: "Bring customer information, operational records and business workflows together through a centralised data foundation.", number: "05", image: "/section-images/feature-database.png" },
+  { title: "Marketing", description: "Launch targeted campaigns, capture interest and connect your marketing directly to your sales pipeline.", number: "01", image: "/section-images/marketing.PNG", icon: "/section-images/feature-campaign.png" },
+  { title: "Funnels", description: "Create guided digital experiences that move customers from interest to action, without unnecessary steps or complicated processes.", number: "02", image: "/section-images/funnel.PNG", icon: "/section-images/feature-funnel.png" },
+  { title: "Applications", description: "Replace complicated paperwork and disconnected forms with structured digital applications designed for a smoother customer experience.", number: "03", image: "/section-images/application.PNG", icon: "/section-images/feature-application.png" },
+  { title: "Management", description: "Give your teams one place to manage customer relationships, applications, follow-ups and ongoing service.", number: "04", image: "/section-images/managment.PNG", icon: "/section-images/feature-crm.png" },
+  { title: "Database & Finance", description: "Bring customer information, operational records and business workflows together through a centralised data foundation.", number: "05", image: "/section-images/dtabse.PNG", icon: "/section-images/feature-database.png" },
 ];
 
 const sectionFont = "'Arial Black', 'Arial Narrow Bold', Impact, sans-serif";
@@ -96,9 +98,11 @@ export function ProjectShowcase({
               transition: "opacity 180ms ease, scale 180ms ease",
             }}
           >
-            <div className="relative h-72 w-72 bg-sky-50">
+            <div className="relative h-[240px] w-[360px] bg-white">
               {items.map((feature, index) => (
-                <img key={feature.title} src={feature.image} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-contain transition-all duration-300" style={{ opacity: hoveredIndex === index ? 1 : 0, transform: hoveredIndex === index ? "scale(1)" : "scale(1.12)" }} />
+                <div key={feature.title} className="absolute inset-0 overflow-hidden transition-all duration-300" style={{ opacity: hoveredIndex === index ? 1 : 0, transform: hoveredIndex === index ? "scale(1)" : "scale(1.04)" }}>
+                  <img src={feature.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-fill" />
+                </div>
               ))}
             </div>
           </div>
@@ -108,7 +112,7 @@ export function ProjectShowcase({
               <div key={feature.title} className="group relative border-t border-slate-200 py-6" onMouseEnter={() => setHoveredIndex(index)} onMouseLeave={() => setHoveredIndex(null)}>
                 <div className={`absolute inset-0 -mx-4 rounded-md bg-blue-50/70 transition-all duration-300 max-[480px]:mx-0 ${hoveredIndex === index ? "opacity-100 scale-100" : "opacity-0 scale-95"}`} />
                 <div className="relative flex items-start justify-between gap-4 max-[480px]:flex-wrap">
-                  <img src={feature.image} alt="" loading="lazy" decoding="async" className="h-16 w-16 shrink-0 rounded-lg border border-white/80 object-contain shadow-sm max-[480px]:h-14 max-[480px]:w-14 md:h-20 md:w-20" />
+                  <img src={feature.icon || feature.image} alt="" loading="lazy" decoding="async" className="h-16 w-16 shrink-0 rounded-lg border border-white/80 object-contain shadow-sm max-[480px]:h-14 max-[480px]:w-14 md:h-20 md:w-20" />
                   <div className="min-w-0 flex-1 max-[480px]:order-3 max-[480px]:w-full max-[480px]:flex-none">
                     <div className="inline-flex flex-wrap items-baseline gap-x-2 gap-y-1">
                       {showTitles && <h3 className="min-w-0 break-words text-xl font-black italic text-blue-600 sm:text-2xl" style={{ fontFamily: sectionFont }}>
@@ -123,7 +127,9 @@ export function ProjectShowcase({
               </div>
             ))}
           </div>
-          {closing && <p className="mx-auto mt-10 max-w-2xl text-xl font-semibold leading-8 text-slate-950 md:text-2xl">{closing}</p>}
+          {closing && <p className="mx-auto mt-10 max-w-2xl text-xl font-semibold leading-8 text-slate-950 md:text-2xl">
+            {closing.endsWith("One platform.") ? <>{closing.slice(0, -"One platform.".length)}<br /><AnimatedUnderlineText text="One Platform." className="mt-2 text-3xl font-bold text-blue-600 md:text-4xl" /></> : closing}
+          </p>}
         </div>
       </div>
     </section>

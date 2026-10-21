@@ -1,16 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { ProductHighlightCard } from "@/components/ui/product-card";
+import AnimatedUnderlineText from "@/components/AnimatedUnderlineText";
 
 const cards = [
   { title: "Marketing", tagline: "More Sales. Less Friction.", description: "Manage campaigns, track leads and measure performance from one marketing dashboard.", icon: "/service-icons/campaign.png", angle: -4 },
-  { title: "Funnels", tagline: "Applications in Under 60 Seconds.", description: "High-converting funnels designed to guide visitors from interest to application.", icon: "/service-icons/funnel.png", angle: 3 },
+  { title: "Funnels", tagline: "Transactions in less than 60 Seconds.", description: "High-converting funnels designed to guide visitors from interest to application.", icon: "/service-icons/funnel.png", angle: 3 },
   { title: "Applications", tagline: "Automate the Work Behind Every Sale.", description: "Fast digital applications with automatic or manual approvals and seamless onboarding.", icon: "/service-icons/application.png", angle: -2 },
   { title: "Management", tagline: "Get Paid. Stay in Control.", description: "Manage profiles, policies, payments, renewals, communications and customer relationships.", icon: "/service-icons/crm.png", angle: 5 },
-  { title: "Database & Finance", tagline: "Turn Your Database Into Growth.", description: "Centralised data, payment collections, automated handovers, reconciliation and reporting.", icon: "/service-icons/database.png", angle: -3 },
+  { title: "Database", tagline: "Turn Your Database Into Growth.", description: "Centralised data, payment collections, automated handovers, reconciliation and reporting.", icon: "/service-icons/database.png", angle: -3 },
 ];
 
 export default function HeroScrollSequence() {
   const sectionRef = useRef<HTMLElement>(null);
+  const lastScrollY = useRef(0);
+  const canSkipHeroOnReturn = useRef(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -29,29 +32,58 @@ export default function HeroScrollSequence() {
     };
   }, []);
 
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+
+    const skipLongHeroOnReturn = () => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const currentScrollY = window.scrollY;
+      const heroBottom = section.offsetTop + section.offsetHeight;
+      const wasScrollingUp = currentScrollY < lastScrollY.current;
+
+      if (currentScrollY > heroBottom) canSkipHeroOnReturn.current = true;
+
+      if (canSkipHeroOnReturn.current && wasScrollingUp && lastScrollY.current >= heroBottom && currentScrollY <= heroBottom) {
+        canSkipHeroOnReturn.current = false;
+        const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+        document.documentElement.style.scrollBehavior = "auto";
+        window.scrollTo(0, section.offsetTop);
+        requestAnimationFrame(() => {
+          document.documentElement.style.scrollBehavior = originalScrollBehavior;
+        });
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", skipLongHeroOnReturn, { passive: true });
+    return () => window.removeEventListener("scroll", skipLongHeroOnReturn);
+  }, []);
+
   const headingProgress = Math.min(1, progress / 0.12);
   const cardStep = -1 + (Math.max(0, progress - 0.1) / 0.9) * (cards.length + 1);
 
   return (
     <section ref={sectionRef} className="h-[700vh] bg-white">
       <div className="sticky top-0 h-screen overflow-hidden bg-white">
-        <img src="/hero-bg-no-beams.png" alt="Kervox connected business platform" loading="eager" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover lg:translate-x-[2.4%] lg:-translate-y-[11%] lg:scale-[1.12]" />
+        <img src="/hero-bg-no-beams.png" alt="Kervox connected business platform" loading="eager" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover lg:origin-[68%_64%] lg:translate-x-[calc(2.4%+95px)] lg:translate-y-[calc(-11%-15px)] lg:scale-[1.4835]" />
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white/50 lg:hidden" style={{ opacity: 1 - headingProgress }} />
         <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 hidden w-[58%] bg-[linear-gradient(90deg,rgba(255,255,255,0.95)_0%,rgba(255,255,255,0.90)_60%,transparent_100%)] lg:block" style={{ opacity: 1 - headingProgress }} />
         <div className="absolute left-[5.7vw] top-[max(5.5rem,12svh)] z-30 w-[min(88vw,720px)] md:top-[22vh] lg:top-[23vh]" inert={headingProgress >= 0.99} style={{ opacity: 1 - headingProgress, transform: `translateX(${-headingProgress * 130}vw)`, pointerEvents: headingProgress >= 0.99 ? "none" : "auto" }}>
           <p className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-700 sm:text-[11px] lg:text-xs">
             The complete customer acquisition &amp; management platform
-            <span aria-hidden="true" className="hidden h-px w-14 bg-blue-300/70 sm:block" />
           </p>
           <h1 className="mt-4 text-[clamp(2rem,3.1vw,3.5rem)] font-bold leading-[1.08] tracking-normal text-slate-950 max-[380px]:mt-3 max-[380px]:text-[1.75rem] md:mt-6">
             From First Click to Paying Customer.<br />
-            <span className="text-blue-600">One Platform.</span>
+            <AnimatedUnderlineText text="One Platform." className="text-blue-600" />
           </h1>
           <p className="mt-4 max-w-[650px] text-sm leading-6 text-slate-600 max-[380px]:mt-3 max-[380px]:text-[13px] max-[380px]:leading-5 md:mt-5 md:text-base md:leading-7 lg:text-lg">Run marketing campaigns, convert visitors through high-performing funnels, capture applications in under 60 seconds, and automate approvals, onboarding, payments and member management.</p>
           <p className="mt-4 text-sm font-medium text-blue-800 md:mt-5 md:text-base">One connected system. From acquisition to ongoing operations.</p>
           <div className="mt-5 flex flex-wrap gap-3 md:mt-6">
-            <a href="#contact" className="rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">Book a Demo</a>
-            <a href="#services" className="rounded-full border border-blue-600 px-6 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-50">Explore the Platform</a>
+            <a href="#contact" className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">Book a Demo</a>
+            <a href="#services" className="rounded-xl border border-blue-600 px-6 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-50">Explore the Platform</a>
           </div>
         </div>
 
@@ -68,7 +100,7 @@ export default function HeroScrollSequence() {
           </svg>
         </a>
 
-        <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 h-[325px] w-[min(100vw,443.75px)] -translate-x-1/2 -translate-y-1/2 md:left-20 md:w-[443.75px] md:translate-x-0 lg:left-28">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 h-[325px] w-[min(100vw,443.75px)] -translate-x-1/2 -translate-y-1/2 md:left-20 md:w-[443.75px] md:translate-x-0 lg:left-[calc(7rem+80px)]">
           {cards.map((card, index) => {
             const offset = index - cardStep;
             const opacity = Math.max(0, 1 - Math.abs(offset));
@@ -76,13 +108,11 @@ export default function HeroScrollSequence() {
               <div key={card.title} className="absolute inset-0" style={{ opacity, transform: `translateY(${-offset * 125}%) rotate(${card.angle}deg) scale(0.8)`, pointerEvents: opacity > 0.8 ? "auto" : "none" }}>
                 <ProductHighlightCard
                   className="h-full w-full"
-                  categoryIcon={<img src={card.icon} alt="" loading="lazy" decoding="async" className="h-6 w-6 object-contain" />}
-                  category={`Feature ${String(index + 1).padStart(2, "0")}`}
+                  categoryIcon={<img src={card.icon} alt="" loading="lazy" decoding="async" className="h-9 w-9 object-contain" />}
+                  number={String(index + 1).padStart(2, "0")}
                   title={card.title}
                   tagline={card.tagline}
                   description={card.description}
-                  imageSrc={card.icon}
-                  imageAlt={`${card.title} illustration`}
                 />
               </div>
             );

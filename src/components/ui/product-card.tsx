@@ -3,16 +3,14 @@ import { cn } from "@/lib/utils";
 
 interface ProductHighlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   categoryIcon: React.ReactNode;
-  category: string;
+  number: string;
   title: string;
   tagline?: string;
   description: string;
-  imageSrc: string;
-  imageAlt: string;
 }
 
 export const ProductHighlightCard = React.forwardRef<HTMLDivElement, ProductHighlightCardProps>(
-  ({ categoryIcon, category, title, tagline, description, imageSrc, imageAlt, className, ...props }, ref) => {
+  ({ categoryIcon, number, title, tagline, description, className, ...props }, ref) => {
     const [tilt, setTilt] = React.useState({ x: 0, y: 0 });
     const filterId = `glass-distortion-${React.useId().replace(/:/g, "")}`;
 
@@ -50,25 +48,20 @@ export const ProductHighlightCard = React.forwardRef<HTMLDivElement, ProductHigh
           style={{ transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transformStyle: "preserve-3d" }}
         >
           <div className="absolute left-5 right-5 top-0 h-px bg-[#36b6ff]/80" />
-          <div className="relative z-10 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-blue-700">
+          <div className="relative z-10 flex items-center gap-4">
+            <span className="text-4xl font-black leading-none tracking-tight text-[#007bd1]">
+              {number}
+            </span>
             {categoryIcon}
-            <span>{category}</span>
           </div>
           <h2
-            className="relative z-10 mt-4 max-w-[15rem] text-2xl font-black italic leading-tight text-[#007bd1]"
+            className="relative z-10 mt-6 text-[2.25rem] font-black italic leading-tight text-[#007bd1] md:text-[2.625rem]"
             style={{ fontFamily: "'Arial Black', 'Arial Narrow Bold', Impact, sans-serif" }}
           >
             {title}
           </h2>
-          {tagline && <p className="relative z-10 mt-1 max-w-[15rem] text-xs font-semibold leading-5 text-slate-950">{tagline}</p>}
-          <p className="relative z-10 mt-3 max-w-[13rem] text-xs leading-5 text-black">{description}</p>
-          <div
-            className="absolute bottom-6 right-5 h-[46%] w-[46%] transition-transform duration-300 group-hover:scale-110"
-            style={{ transform: "translateZ(72px) rotate(-7deg)", transformStyle: "preserve-3d" }}
-          >
-            <div className="absolute bottom-0 left-[12%] h-4 w-[76%] rounded-full bg-blue-700/25 blur-md" style={{ transform: "translateZ(-20px)" }} />
-            <img src={imageSrc} alt={imageAlt} loading="lazy" decoding="async" className="relative h-full w-full object-contain object-bottom-right drop-shadow-[0_16px_12px_rgba(30,64,175,0.35)]" />
-          </div>
+          {tagline && <p className="relative z-10 mt-2 text-xl font-semibold leading-7 text-slate-950 md:text-[1.35rem] md:leading-8">{tagline}</p>}
+          <p className="relative z-10 mt-4 max-w-none text-lg leading-7 text-black md:text-xl md:leading-9">{description}</p>
         </div>
       </div>
     );
