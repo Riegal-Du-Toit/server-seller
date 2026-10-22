@@ -125,7 +125,7 @@ export default function HeroScrollSequence() {
           </svg>
         </a>
 
-        <div className="absolute left-1/2 top-1/2 z-20 h-[342px] w-[min(calc(100vw-2rem),341px)] -translate-x-1/2 -translate-y-1/2 md:left-[calc(5rem+60px)] md:w-[341px] md:translate-x-0 lg:left-[calc(7rem+140px)]" style={{ opacity: cardsVisible, pointerEvents: cardsVisible > 0.8 ? "auto" : "none" }}>
+        <div className="absolute left-1/2 top-[calc(50%+36px)] z-20 h-[414px] w-[min(calc(100vw-2rem),341px)] -translate-x-1/2 -translate-y-1/2 md:left-[calc(5rem+60px)] md:w-[341px] md:translate-x-0 lg:left-[calc(7rem+140px)]" style={{ opacity: cardsVisible, pointerEvents: cardsVisible > 0.8 ? "auto" : "none" }}>
           {cards.map((card, index) => {
             const offset = index - activeCard;
             const opacity = Math.max(0, 1 - Math.abs(offset));
@@ -135,10 +135,10 @@ export default function HeroScrollSequence() {
               </div>
             );
           })}
-          <div className="absolute -bottom-14 right-0 flex items-center gap-2">
-            <button type="button" aria-label="Show previous platform screen" onClick={() => moveToCard(Math.max(0, activeCard - 1))} disabled={activeCard === 0} className="grid size-10 place-items-center rounded-full border border-blue-200 bg-white text-blue-700 shadow-sm transition hover:border-blue-600 hover:bg-blue-50 disabled:cursor-not-allowed disabled:opacity-35"><ArrowLeft className="size-4" /></button>
-            <span className="min-w-12 text-center text-xs font-bold tracking-[0.16em] text-slate-600">{String(activeCard + 1).padStart(2, "0")} / 05</span>
-            <button type="button" aria-label="Show next platform screen" onClick={() => moveToCard(Math.min(cards.length - 1, activeCard + 1))} disabled={activeCard === cards.length - 1} className="grid size-10 place-items-center rounded-full bg-blue-600 text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-35"><ArrowRight className="size-4" /></button>
+          <div className="absolute -bottom-10 right-[124px] flex items-center gap-1.5">
+            <button type="button" aria-label="Show previous platform screen" onClick={() => moveToCard(Math.max(0, activeCard - 1))} disabled={activeCard === 0} className="grid size-[30px] place-items-center rounded-full border border-blue-200 bg-white text-blue-700 shadow-sm transition hover:border-blue-600 hover:bg-blue-50 disabled:cursor-not-allowed disabled:opacity-35"><ArrowLeft className="size-3" /></button>
+            <span className="min-w-9 text-center text-[9px] font-bold tracking-[0.16em] text-slate-600">{String(activeCard + 1).padStart(2, "0")} / 05</span>
+            <button type="button" aria-label="Show next platform screen" onClick={() => moveToCard(Math.min(cards.length - 1, activeCard + 1))} disabled={activeCard === cards.length - 1} className="grid size-[30px] place-items-center rounded-full bg-blue-600 text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-35"><ArrowRight className="size-3" /></button>
           </div>
         </div>
         {activeCard === cards.length - 1 && cardsVisible > 0.8 && <div className="absolute bottom-7 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-1.5 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.24em] text-blue-800 md:bottom-9"><span>Scroll to view more</span><svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 motion-safe:animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg></div>}

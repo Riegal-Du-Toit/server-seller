@@ -67,7 +67,7 @@ export function NotchedProjectCard({
       </div>
 
       <h3 className={cn("mt-4 font-black italic tracking-tight text-blue-600", variant === "hero" ? "text-xl" : "text-2xl")}>{title}</h3>
-      {description ? <p className={cn("mt-1.5 leading-relaxed text-slate-600", variant === "hero" ? "text-[13px]" : "text-sm")}>{description}</p> : null}
+      {description ? <p className={cn("mt-2 line-clamp-3 leading-6 text-slate-800", variant === "hero" ? "w-[300px] text-sm font-medium" : "w-full text-sm font-medium")}>{description}</p> : null}
 
       {variant === "hero" && typeof document !== "undefined" && createPortal(<div role="dialog" aria-modal="true" aria-label={`${title} full-size image`} onClick={() => setPreviewOpen(false)} className={cn("fixed inset-0 z-[60] grid place-items-center bg-slate-950/55 p-8 backdrop-blur-sm transition-opacity duration-200", showExpandedPreview ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0")}>
         <div onClick={(event) => event.stopPropagation()} className={cn("relative w-[min(92vw,1120px)] overflow-hidden rounded-2xl border border-white/50 bg-white shadow-2xl transition-transform duration-200", showExpandedPreview ? "scale-100" : "scale-95")}>

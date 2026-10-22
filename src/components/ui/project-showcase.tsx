@@ -107,7 +107,7 @@ export function ProjectShowcase({
             </div>
           </div>
 
-          <div className="mt-10 border-b border-slate-200 text-left">
+          <div className="mt-10 border-b border-slate-200 text-left md:-ml-28 md:w-[calc(100%+7rem)]">
             {items.map((feature, index) => (
               <div key={feature.title} className="group relative border-t border-slate-200 py-6" onMouseEnter={() => setHoveredIndex(index)} onMouseLeave={() => setHoveredIndex(null)}>
                 <div className={`absolute inset-0 -mx-4 rounded-md bg-blue-50/70 transition-all duration-300 max-[480px]:mx-0 ${hoveredIndex === index ? "opacity-100 scale-100" : "opacity-0 scale-95"}`} />
@@ -127,7 +127,7 @@ export function ProjectShowcase({
               </div>
             ))}
           </div>
-          {closing && <p className="mx-auto mt-10 max-w-2xl text-xl font-semibold leading-8 text-slate-950 md:text-2xl">
+          {closing && <p className="mx-auto mt-10 max-w-2xl whitespace-nowrap text-xl font-semibold leading-8 text-slate-950 md:text-2xl">
             {closing.endsWith("One platform.") ? <>{closing.slice(0, -"One platform.".length)}<br /><AnimatedUnderlineText text="One Platform." className="mt-2 text-3xl font-bold text-blue-600 md:text-4xl" /></> : closing}
           </p>}
         </div>
