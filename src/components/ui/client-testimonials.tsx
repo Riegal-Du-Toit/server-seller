@@ -1,26 +1,19 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const testimonials = [
-  { quote: "Policy applications, intermediary workflows, customer management, finance and claims processes.", author: "Insurance & Financial Services", role: "Built for connected operations", category: "Industry Solutions" },
-  { quote: "Member onboarding, provider workflows, authorisations and benefit administration.", author: "Healthcare & Benefits", role: "Built for connected operations", category: "Industry Solutions" },
-  { quote: "Digital customer acquisition, loan application journeys, document collection and review handovers.", author: "Lending & Credit", role: "Built for connected operations", category: "Industry Solutions" },
-  { quote: "Member registrations, recurring contributions, renewals and administration.", author: "Membership Organisations", role: "Built for connected operations", category: "Industry Solutions" },
-  { quote: "Adapt Kervox to customer-focused businesses that need connected sales and operational workflows.", author: "Other Enterprises", role: "Built for connected operations", category: "Industry Solutions" },
+  { quote: "It’s the best piece of work I’ve seen on a brand transformation — we were blown away.", author: "Customer feedback", role: "Shared after a Kervox brand transformation", category: "Current Clients" },
+  { quote: "The thinking, quality and attention to detail have taken the whole brand to another level.", author: "Customer feedback", role: "Shared by a Kervox customer", category: "Current Clients" },
+  { quote: "This has given us clarity, confidence and a platform our team is proud to put in front of customers.", author: "Customer feedback", role: "Shared by a Kervox customer", category: "Current Clients" },
+  { quote: "The result feels considered from every angle — sharper, stronger and built to grow with us.", author: "Customer feedback", role: "Shared by a Kervox customer", category: "Current Clients" },
+  { quote: "You took a complex vision and turned it into something simple, powerful and ready to perform.", author: "Customer feedback", role: "Shared by a Kervox customer", category: "Current Clients" },
 ];
 
 const sectionFont = "'Arial Black', 'Arial Narrow Bold', Impact, sans-serif";
 
 export default function ClientTestimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const x = useSpring(mouseX, { damping: 25, stiffness: 200 });
-  const y = useSpring(mouseY, { damping: 25, stiffness: 200 });
-  const numberX = useTransform(x, [-200, 200], [-20, 20]);
-  const numberY = useTransform(y, [-200, 200], [-10, 10]);
 
   const goNext = () => setActiveIndex((current) => (current + 1) % testimonials.length);
   const goPrevious = () => setActiveIndex((current) => (current - 1 + testimonials.length) % testimonials.length);
@@ -28,25 +21,15 @@ export default function ClientTestimonials() {
   const current = testimonials[activeIndex];
 
   return (
-    <section id="clients" className="overflow-hidden border-t border-slate-200 bg-white py-20 md:py-28" aria-labelledby="clients-heading">
-      <div ref={containerRef} className="relative mx-auto grid max-w-6xl grid-cols-[64px_1fr] gap-6 px-5 md:grid-cols-[96px_1fr] md:gap-12 md:px-8" onMouseMove={(event) => {
-        const bounds = containerRef.current?.getBoundingClientRect();
-        if (bounds) {
-          mouseX.set(event.clientX - bounds.left - bounds.width / 2);
-          mouseY.set(event.clientY - bounds.top - bounds.height / 2);
-        }
-      }}>
-        <aside className="flex justify-center border-r border-slate-200 pr-4 md:pr-7">
-          <p className="rotate-180 text-[64px] font-black italic leading-none text-blue-600 [writing-mode:vertical-rl] md:text-[80px]" style={{ fontFamily: sectionFont }}>
-            SOLUTIONS
+    <section id="clients" className="overflow-visible border-t border-slate-200 bg-white py-20 md:pb-16 md:pt-28" aria-labelledby="clients-heading">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-[64px_1fr] gap-6 px-5 md:grid-cols-[96px_1fr] md:gap-12 md:px-8">
+        <aside className="flex justify-center border-r border-slate-200 pr-4 md:h-[300px] md:overflow-visible md:pr-7">
+          <p className="rotate-180 text-[64px] font-black italic leading-none text-blue-600 [writing-mode:vertical-rl] md:translate-y-[70px] md:text-[80px]" style={{ fontFamily: sectionFont }}>
+            CURRENT CLIENTS
           </p>
         </aside>
 
-        <div className="relative min-h-[440px] overflow-hidden py-5 md:min-h-[470px] md:py-10">
-          <motion.p className="pointer-events-none absolute -left-7 top-1/2 -z-0 -translate-y-1/2 select-none text-[13rem] font-black italic leading-none text-blue-600/[0.06] md:text-[20rem]" style={{ x: numberX, y: numberY, fontFamily: sectionFont }}>
-            {String(activeIndex + 1).padStart(2, "0")}
-          </motion.p>
-
+        <div className="relative overflow-hidden py-5 md:py-10">
           <div className="relative z-10 max-w-3xl">
             <div className="mb-9 flex items-center gap-4">
               <span className="h-px w-10 bg-blue-600" />
@@ -74,14 +57,14 @@ export default function ClientTestimonials() {
                 </motion.div>
               </AnimatePresence>
 
-              <div className="flex items-center gap-3">
-                <button type="button" onClick={goPrevious} aria-label="Previous industry solution" className="grid h-11 w-11 place-items-center rounded-full border border-slate-300 text-slate-700 transition hover:border-blue-600 hover:bg-blue-600 hover:text-white">
+              {testimonials.length > 1 && <div className="flex items-center gap-3">
+                <button type="button" onClick={goPrevious} aria-label="Previous customer quote" className="grid h-11 w-11 place-items-center rounded-full border border-slate-300 text-slate-700 transition hover:border-blue-600 hover:bg-blue-600 hover:text-white">
                   <ArrowLeft className="h-4 w-4" />
                 </button>
-                <button type="button" onClick={goNext} aria-label="Next industry solution" className="grid h-11 w-11 place-items-center rounded-full border border-slate-300 text-slate-700 transition hover:border-blue-600 hover:bg-blue-600 hover:text-white">
+                <button type="button" onClick={goNext} aria-label="Next customer quote" className="grid h-11 w-11 place-items-center rounded-full border border-slate-300 text-slate-700 transition hover:border-blue-600 hover:bg-blue-600 hover:text-white">
                   <ArrowRight className="h-4 w-4" />
                 </button>
-              </div>
+              </div>}
             </div>
 
             <div className="mt-10 h-px w-full bg-slate-200">
