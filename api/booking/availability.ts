@@ -1,6 +1,14 @@
-import { BookingConfigurationError, BookingProviderError, getAvailableSlots } from "../../lib/cal-booking";
+import { BookingConfigurationError, BookingProviderError, getAvailableSlots } from "../../src/lib/cal-booking";
 
-const allowedTimeZones = new Set(["Asia/Manila", "Africa/Johannesburg", "Europe/London"]);
+function validTimeZone(value: string) {
+  if (!value || value.length > 80) return false;
+  try {
+    new Intl.DateTimeFormat("en-US", { timeZone: value }).format();
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 function json(body: unknown, status = 200) {
   return Response.json(body, { status, headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } });
@@ -16,7 +24,7 @@ export async function GET(request: Request) {
   const endTime = url.searchParams.get("endTime");
   const timeZone = url.searchParams.get("timeZone") || "Asia/Manila";
   const duration = Number(url.searchParams.get("duration") || "30");
-  if (!validDate(startTime) || !validDate(endTime) || !allowedTimeZones.has(timeZone) || ![30, 45].includes(duration)) return json({ message: "Invalid availability request." }, 400);
+  if (!validDate(startTime) || !validDate(endTime) || !validTimeZone(timeZone) || ![30, 45].includes(duration)) return json({ message: "Invalid availability request." }, 400);
   if (new Date(endTime!).valueOf() <= new Date(startTime!).valueOf()) return json({ message: "Invalid availability range." }, 400);
   try {
     const slots = await getAvailableSlots({ startTime: startTime!, endTime: endTime!, timeZone, duration });

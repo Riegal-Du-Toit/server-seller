@@ -36,6 +36,11 @@ const timeZones = [
 ];
 type Slot = { start: string };
 type DayGroup = { key: string; date: Date; slots: Slot[] };
+type Localisation = { timeZone?: string; price?: { formatted?: string; currency?: string } };
+
+function timeZoneLabel(timeZone: string) {
+  return timeZones.find((zone) => zone.value === timeZone)?.label ?? `Your local time (${timeZone.replace("_", " ")})`;
+}
 
 type PillPickerProps = { items: string[]; value: string; onChange: (item: string) => void };
 
@@ -88,11 +93,29 @@ export default function KervoxBookingJourney() {
   const [email, setEmail] = useState("");
   const [bookingState, setBookingState] = useState<"idle" | "saving" | "success" | "error">("idle");
   const [bookingError, setBookingError] = useState("");
+  const [priceLabel, setPriceLabel] = useState("US$299");
   const availableDays = useMemo(() => groupSlots(availableSlots, timeZone), [availableSlots, timeZone]);
   const selectedDaySlots = availableDays.find((day) => day.key === selectedDay)?.slots ?? [];
+  const timeZoneOptions = useMemo(() => timeZones.some((zone) => zone.value === timeZone) ? timeZones : [{ label: timeZoneLabel(timeZone), value: timeZone }, ...timeZones], [timeZone]);
 
   const readyToBook = role.trim().length > 1 && Boolean(timeline) && Boolean(decision) && focus.length === 3 && problem.trim().length > 2;
   const canConfirm = Boolean(selectedSlot) && name.trim().length > 1 && /^\S+@\S+\.\S+$/.test(email);
+
+  useEffect(() => {
+    const browserTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const controller = new AbortController();
+    fetch(`/api/localisation?timeZone=${encodeURIComponent(browserTimeZone)}`, { signal: controller.signal })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Localisation unavailable");
+        return await response.json() as Localisation;
+      })
+      .then((result) => {
+        if (result.timeZone) setTimeZone(result.timeZone);
+        if (result.price?.formatted) setPriceLabel(result.price.formatted);
+      })
+      .catch(() => undefined);
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     if (step !== 1) return;
@@ -205,7 +228,7 @@ export default function KervoxBookingJourney() {
                 <p className="text-xs font-bold uppercase tracking-[.12em] text-slate-500">Session length</p>
                 <div className="mt-2 inline-flex rounded-xl bg-slate-100 p-1">{[30, 45].map((minutes) => <button key={minutes} type="button" onClick={() => setDuration(minutes)} className={`rounded-lg px-4 py-2 text-sm font-bold transition ${duration === minutes ? "bg-white text-blue-700 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}>{minutes} min</button>)}</div>
               </div>
-              <label className="mt-5 block text-xs font-bold uppercase tracking-[.12em] text-slate-500">Show times in<select value={timeZone} onChange={(event) => setTimeZone(event.target.value)} className="mt-2 block h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-semibold normal-case tracking-normal text-slate-700 outline-none focus:border-blue-500">{timeZones.map((zone) => <option key={zone.value} value={zone.value}>{zone.label}</option>)}</select></label>
+              <label className="mt-5 block text-xs font-bold uppercase tracking-[.12em] text-slate-500">Show times in<select value={timeZone} onChange={(event) => setTimeZone(event.target.value)} className="mt-2 block h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-semibold normal-case tracking-normal text-slate-700 outline-none focus:border-blue-500">{timeZoneOptions.map((zone) => <option key={zone.value} value={zone.value}>{zone.label}</option>)}</select></label>
               <p className="mt-5 flex items-center gap-2 text-sm font-medium text-slate-600"><MonitorPlay className="size-4 text-blue-600" /> Video call - link sent after booking</p>
             </aside>
 
@@ -239,7 +262,7 @@ export default function KervoxBookingJourney() {
           <div>
             <p className="text-xs font-bold uppercase tracking-[.14em] text-blue-700">Step 1 of 1</p><h3 className="mt-2 text-2xl font-bold tracking-tight text-slate-950 md:text-3xl">Tell us about your team.</h3>
             <div className="mt-1 grid gap-5 sm:grid-cols-2"><label className="text-sm font-bold text-slate-700">Your role<input value={role} onChange={(event) => setRole(event.target.value)} className="mt-3 h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 font-normal outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100" placeholder="Founder, operations, sales..." /></label><div><div className="flex items-baseline justify-between text-sm font-bold text-slate-700"><span>Company size</span><output className="text-blue-700">{teamSizeLabel(teamSize)}</output></div><input aria-label="Company size" type="range" min="1" max="500" step="1" value={teamSize} onChange={(event) => setTeamSize(Number(event.target.value))} className="mt-4 h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-blue-600" /><div className="mt-1 flex justify-between text-xs font-semibold text-slate-400"><span>1</span><span>500+</span></div></div></div>
-            <div className="mt-8"><p className="text-sm font-bold text-slate-700">When are you aiming to make progress?</p><PillPicker items={timelines} value={timeline} onChange={setTimeline} /></div><div className="mt-5"><p className="text-sm font-bold text-slate-700">How are you involved in the decision?</p><PillPicker items={decisions} value={decision} onChange={setDecision} /></div><label className="mt-5 block text-sm font-bold text-slate-700">What is the biggest problem you want to solve?<textarea value={problem} onChange={(event) => setProblem(event.target.value)} rows={1} className="mt-2 h-12 w-full resize-none rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm font-normal outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100" placeholder="E.g. slow applications or scattered data." /></label>
+            <div className="mt-8"><p className="text-sm font-bold text-slate-700">When are you aiming to make progress?</p><PillPicker items={timelines} value={timeline} onChange={setTimeline} /></div><div className="mt-5"><p className="text-sm font-bold text-slate-700">How are you involved in the decision?</p><PillPicker items={decisions} value={decision} onChange={setDecision} /></div><label className="mt-5 block text-sm font-bold text-slate-700">What is the biggest problem you want to solve?<textarea value={problem} onChange={(event) => setProblem(event.target.value)} rows={1} className="mt-2 h-12 w-full resize-none rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm font-normal outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100" placeholder="E.g. slow applications or scattered data." /></label><div className="mt-5 border-l-2 border-blue-600 pl-3"><p className="text-[10px] font-bold uppercase tracking-[.16em] text-blue-700">From {priceLabel} / month</p><p className="mt-1 text-xs leading-4 text-slate-600">A dedicated workspace for your team. Never shared.</p></div>
           </div>
           <div className="border-t border-slate-100 pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0"><p className="text-xs font-bold uppercase tracking-[.14em] text-blue-700">Your priorities</p><h3 className="mt-2 text-2xl font-bold tracking-tight text-slate-950 md:text-3xl">What matters most right now?</h3><p className="mt-1 text-sm text-slate-600">Drag your top three into order, or tap a card to add it.</p><div className="mt-4 grid grid-cols-3 gap-2">{[0, 1, 2].map((rank) => <div key={rank} onDragOver={(event) => event.preventDefault()} onDrop={() => drop(rank)} className={`min-h-[62px] rounded-xl border-2 border-dashed p-2 ${focus[rank] ? "border-blue-300 bg-blue-50" : "border-slate-200 bg-slate-50"}`}><p className="text-[10px] font-black uppercase tracking-[.1em] text-blue-700">Priority {rank + 1}</p>{focus[rank] ? <div className="mt-1.5 flex justify-between gap-1 text-xs font-bold leading-4 text-slate-900"><span>{focus[rank]}</span><button type="button" aria-label={`Remove ${focus[rank]}`} onClick={() => setFocus((items) => items.filter((item) => item !== focus[rank]))}><X className="size-3.5" /></button></div> : <p className="mt-2 text-xs text-slate-400">Drop here</p>}</div>)}</div><div className="mt-3 grid grid-cols-3 gap-2">{options.map((item) => <button key={item} type="button" draggable onDragStart={() => setDragged(item)} onClick={() => choose(item)} className={`flex min-h-8 items-center gap-1.5 rounded-lg border px-2 py-1.5 text-left text-[11px] font-bold leading-[.875rem] transition ${focus.includes(item) ? "border-blue-600 bg-blue-600 text-white" : "border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50"}`}><GripVertical className="size-3.5 shrink-0 opacity-60" /><span>{item}</span>{focus.includes(item) && <span className="ml-auto text-[10px]">#{focus.indexOf(item) + 1}</span>}</button>)}</div><div className="mt-4 flex justify-end"><button type="button" disabled={!readyToBook} onClick={() => setStep(1)} className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-600/25 disabled:cursor-not-allowed disabled:opacity-40">Choose a time <ArrowRight className="size-4" /></button></div></div>
         </div>

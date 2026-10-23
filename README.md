@@ -13,8 +13,9 @@ npm start
 
 ## Production booking
 
-The public booking interface calls two Vercel Functions:
+The public booking interface calls three Vercel Functions:
 
+- `GET /api/localisation` reads Vercel's country header and the browser timezone to select a local currency display and default appointment timezone.
 - `GET /api/booking/availability` fetches real available times.
 - `POST /api/booking/confirm` creates the calendar event, sends the calendar provider's invitation, and optionally notifies the CRM webhook.
 
@@ -23,9 +24,12 @@ It uses Cal.com's API v2, keeping the provider API key on the server. Create a K
 ```
 CAL_API_KEY=cal_live_...
 CAL_EVENT_TYPE_ID=123
+STARTING_PRICE_USD=299
 ```
 
 The event type must allow the two session lengths offered by the site (30 and 45 minutes). Cal.com owns the calendar conflict checks and the invitation; the booking context is attached as event metadata.
+
+The journey displays a compact `From` price in the visitor's currency and allows them to change their timezone. Before paid traffic, replace the initial rounded estimates with approved regional prices. Supabase is the intended source of truth for that regional price table and conversion-rate snapshots.
 
 Optionally configure `CRM_WEBHOOK_URL` and `CRM_WEBHOOK_TOKEN` to receive a completed booking payload. Configure Vercel WAF rate limiting for `/api/booking/*` before opening the form to paid traffic.
 

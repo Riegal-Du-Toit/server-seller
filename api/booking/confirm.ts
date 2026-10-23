@@ -1,6 +1,14 @@
-import { BookingConfigurationError, BookingProviderError, createBooking, notifyCrm, type BookingRequest } from "../../lib/cal-booking";
+import { BookingConfigurationError, BookingProviderError, createBooking, notifyCrm, type BookingRequest } from "../../src/lib/cal-booking";
 
-const allowedTimeZones = new Set(["Asia/Manila", "Africa/Johannesburg", "Europe/London"]);
+function validTimeZone(value: string) {
+  if (!value || value.length > 80) return false;
+  try {
+    new Intl.DateTimeFormat("en-US", { timeZone: value }).format();
+    return true;
+  } catch {
+    return false;
+  }
+}
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function json(body: unknown, status = 200) {
@@ -19,7 +27,7 @@ function parseBooking(value: unknown): BookingRequest | null {
   const timeZone = text(body.timeZone, 80);
   const email = text(body.email, 200).toLowerCase();
   const duration = Number(body.duration);
-  if (!text(body.name, 100) || !emailPattern.test(email) || !start || Number.isNaN(new Date(start).valueOf()) || !allowedTimeZones.has(timeZone) || ![30, 45].includes(duration) || priorities.length !== 3 || !text(body.role, 180) || !text(body.problem, 500) || !text(body.timeline, 100) || !text(body.decisionRole, 100)) return null;
+  if (!text(body.name, 100) || !emailPattern.test(email) || !start || Number.isNaN(new Date(start).valueOf()) || !validTimeZone(timeZone) || ![30, 45].includes(duration) || priorities.length !== 3 || !text(body.role, 180) || !text(body.problem, 500) || !text(body.timeline, 100) || !text(body.decisionRole, 100)) return null;
   const teamSize = Number(body.teamSize);
   if (!Number.isSafeInteger(teamSize) || teamSize < 1 || teamSize > 500) return null;
   return { name: text(body.name, 100), email, start: new Date(start).toISOString(), timeZone, duration, role: text(body.role, 180), teamSize, priorities, problem: text(body.problem, 500), timeline: text(body.timeline, 100), decisionRole: text(body.decisionRole, 100), startTime: start, endTime: start };
