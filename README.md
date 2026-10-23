@@ -24,7 +24,7 @@ It uses Cal.com's API v2, keeping the provider API key on the server. Create a K
 ```
 CAL_API_KEY=cal_live_...
 CAL_EVENT_TYPE_ID=123
-STARTING_PRICE_USD=299
+STARTING_PRICE_ZAR=25000
 ```
 
 The event type must allow the two session lengths offered by the site (30 and 45 minutes). Cal.com owns the calendar conflict checks and the invitation; the booking context is attached as event metadata.

@@ -93,7 +93,7 @@ export default function KervoxBookingJourney() {
   const [email, setEmail] = useState("");
   const [bookingState, setBookingState] = useState<"idle" | "saving" | "success" | "error">("idle");
   const [bookingError, setBookingError] = useState("");
-  const [priceLabel, setPriceLabel] = useState("US$299");
+  const [priceLabel, setPriceLabel] = useState("R25,000");
   const availableDays = useMemo(() => groupSlots(availableSlots, timeZone), [availableSlots, timeZone]);
   const selectedDaySlots = availableDays.find((day) => day.key === selectedDay)?.slots ?? [];
   const timeZoneOptions = useMemo(() => timeZones.some((zone) => zone.value === timeZone) ? timeZones : [{ label: timeZoneLabel(timeZone), value: timeZone }, ...timeZones], [timeZone]);
