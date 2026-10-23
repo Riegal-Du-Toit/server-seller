@@ -17,6 +17,24 @@ export default function HeroScrollSequence() {
   const canSkipHeroOnReturn = useRef(false);
   const [progress, setProgress] = useState(0);
   const [activeCard, setActiveCard] = useState(0);
+  const [startingPrice, setStartingPrice] = useState("R25,000");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const browserTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    fetch(`/api/localisation?timeZone=${encodeURIComponent(browserTimeZone)}`, { signal: controller.signal })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Localisation unavailable");
+        return await response.json() as { price?: { formatted?: string } };
+      })
+      .then((result) => {
+        if (result.price?.formatted) setStartingPrice(result.price.formatted);
+      })
+      .catch(() => undefined);
+
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     const update = () => {
@@ -106,6 +124,10 @@ export default function HeroScrollSequence() {
           </h1>
           <p className="mt-4 max-w-[650px] text-sm leading-6 text-slate-600 max-[380px]:mt-3 max-[380px]:text-[13px] max-[380px]:leading-5 md:mt-5 md:text-base md:leading-7 lg:text-lg">Run marketing campaigns, convert visitors through high-performing funnels, capture applications in under 60 seconds, and automate approvals, onboarding, payments and member management.</p>
           <p className="mt-4 text-sm font-medium text-blue-800 md:mt-5 md:text-base">One connected system. From acquisition to ongoing operations.</p>
+          <a href="#contact" className="mt-5 inline-flex max-w-fit flex-col border-l-2 border-blue-600 pl-3 text-left transition hover:border-blue-800">
+            <span className="text-[10px] font-bold uppercase tracking-[.16em] text-blue-700">Starting from {startingPrice} / month</span>
+            <span className="mt-1 text-xs leading-4 text-slate-600 md:text-sm">Dedicated workspace. Built around your workflow.</span>
+          </a>
           <div className="mt-5 flex flex-wrap gap-3 md:mt-6">
             <a href="#contact" className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">Book a Demo</a>
             <a href="#services" className="rounded-xl border border-blue-600 px-6 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-50">Explore the Platform</a>
