@@ -48,8 +48,8 @@ export function GET(request: Request) {
   const country = (request.headers.get("x-vercel-ip-country") || url.searchParams.get("country") || "US").toUpperCase();
   const market = marketDefaults[country] || marketDefaults.US;
   const browserTimeZone = url.searchParams.get("timeZone");
-  const baseZar = Number(process.env.STARTING_PRICE_ZAR || "25000");
-  const startingPriceZar = Number.isFinite(baseZar) && baseZar > 0 ? baseZar : 25000;
+  const baseZar = Number(process.env.STARTING_PRICE_ZAR || "5000");
+  const startingPriceZar = Number.isFinite(baseZar) && baseZar > 0 ? baseZar : 5000;
   return Response.json({
     country,
     timeZone: validTimeZone(browserTimeZone) ? browserTimeZone : market.timeZone,
