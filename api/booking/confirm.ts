@@ -1,4 +1,4 @@
-import { BookingConfigurationError, BookingProviderError, createBooking, notifyCrm, type BookingRequest } from "../../src/lib/cal-booking";
+import { BookingConfigurationError, BookingProviderError, createBooking, notifyCrm, type BookingRequest } from "../../src/lib/cal-booking.js";
 
 function validTimeZone(value: string) {
   if (!value || value.length > 80) return false;
