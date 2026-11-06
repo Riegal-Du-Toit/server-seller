@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, MessageCircle } from "lucide-react";
 import { NotchedProjectCard } from "@/components/ui/notched-project-card";
 import AnimatedUnderlineText from "@/components/AnimatedUnderlineText";
 
@@ -41,7 +41,11 @@ export default function HeroScrollSequence() {
       const section = sectionRef.current;
       if (!section) return;
       const range = section.offsetHeight - window.innerHeight;
-      setProgress(Math.min(1, Math.max(0, -section.getBoundingClientRect().top / range)));
+      const nextProgress = Math.min(1, Math.max(0, -section.getBoundingClientRect().top / range));
+      setProgress(nextProgress);
+
+      const cardProgress = Math.min(1, Math.max(0, (nextProgress - 0.15) / 0.75));
+      setActiveCard(Math.min(cards.length - 1, Math.floor(cardProgress * cards.length)));
     };
     update();
     window.addEventListener("scroll", update, { passive: true });
@@ -51,25 +55,6 @@ export default function HeroScrollSequence() {
       window.removeEventListener("resize", update);
     };
   }, []);
-
-  useEffect(() => {
-    if (activeCard !== cards.length - 1) return;
-
-    const continueToPlatform = (event: WheelEvent) => {
-      if (event.deltaY <= 0) return;
-      const section = sectionRef.current;
-      if (!section) return;
-      const bounds = section.getBoundingClientRect();
-      const heroIsPinned = bounds.top <= 0 && bounds.bottom > window.innerHeight;
-      if (!heroIsPinned) return;
-
-      event.preventDefault();
-      window.scrollTo({ top: section.offsetTop + section.offsetHeight, behavior: "smooth" });
-    };
-
-    window.addEventListener("wheel", continueToPlatform, { passive: false });
-    return () => window.removeEventListener("wheel", continueToPlatform);
-  }, [activeCard]);
 
   useEffect(() => {
     lastScrollY.current = window.scrollY;
@@ -105,7 +90,14 @@ export default function HeroScrollSequence() {
   const cardsVisible = Math.min(1, Math.max(0, (progress - 0.07) / 0.08));
 
   const moveToCard = (index: number) => {
-    setActiveCard(Math.min(cards.length - 1, Math.max(0, index)));
+    const nextIndex = Math.min(cards.length - 1, Math.max(0, index));
+    const section = sectionRef.current;
+    if (section) {
+      const range = section.offsetHeight - window.innerHeight;
+      const cardProgress = 0.15 + ((nextIndex + 0.25) / cards.length) * 0.75;
+      window.scrollTo({ top: section.offsetTop + range * cardProgress, behavior: "smooth" });
+    }
+    setActiveCard(nextIndex);
   };
 
   return (
@@ -124,13 +116,13 @@ export default function HeroScrollSequence() {
           </h1>
           <p className="mt-4 max-w-[650px] text-sm leading-6 text-slate-600 max-[380px]:mt-3 max-[380px]:text-[13px] max-[380px]:leading-5 md:mt-5 md:text-base md:leading-7 lg:text-lg">Run marketing campaigns, convert visitors through high-performing funnels, capture applications in under 60 seconds, and automate approvals, onboarding, payments and member management.</p>
           <p className="mt-4 text-sm font-medium text-blue-800 md:mt-5 md:text-base">One connected system. From acquisition to ongoing operations.</p>
-          <a href="https://kervox.cloud" className="mt-5 inline-flex max-w-fit flex-col border-l-2 border-blue-600 pl-3 text-left transition hover:border-blue-800">
+          <a href="https://www.kervox.dev/packages" className="mt-5 inline-flex max-w-fit flex-col border-l-2 border-blue-600 pl-3 text-left transition hover:border-blue-800">
             <span className="text-[10px] font-bold uppercase tracking-[.16em] text-blue-700">3 Versions Available · Starting from {startingPrice}/month</span>
             <span className="mt-1 text-xs leading-4 text-slate-600 md:text-sm">Find the version that fits your business.</span>
           </a>
           <div className="mt-5 flex flex-wrap gap-3 md:mt-6">
-            <a href="https://kervox.cloud" className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">Explore Plans</a>
-            <a href="https://kervox.cloud" className="rounded-xl border border-blue-600 px-6 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-50">Book a Demo</a>
+            <a href="https://www.kervox.dev/packages" className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">Explore Plans</a>
+            <a href="https://wa.me/27714329190?text=Hi%20Kervox%2C%20I%27d%20like%20to%20book%20a%20demo." target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1da851]"><MessageCircle className="size-4" />Book a Demo on WhatsApp</a>
           </div>
         </div>
 
