@@ -15,7 +15,7 @@ export default function CtaWithTextMarquee() {
             Three versions. One connected platform. Built around your business.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a href="https://kervox.cloud" className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700">Explore Plans</a>
+            <a href="https://kervox.cloud" className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700">View 3 options</a>
             <a href="https://kervox.cloud" className="rounded-xl border border-blue-600 px-6 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-50">Book a Demo</a>
           </div>
         </div>

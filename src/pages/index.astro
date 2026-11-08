@@ -6,17 +6,17 @@ import { ProjectShowcase } from "@/components/ui/project-showcase";
 import HeroScrollSequence from "@/components/HeroScrollSequence";
 
 const whyItems = [
-  { title: "Marketing", tagline: "More Sales. Less Friction.", description: "Turn marketing traffic into completed applications with conversion-focused funnels and streamlined customer journeys.", number: "01", image: "/section-images/why-performance.png" },
-  { title: "Funnels", tagline: "Applications in Under 60 Seconds.", description: "Make it easier for customers to apply with fast digital forms, automatic or manual approvals, and structured onboarding.", number: "02", image: "/section-images/why-scale.png" },
-  { title: "Applications", tagline: "Automate the Work Behind Every Sale.", description: "Reduce repetitive administration with automated handovers, approval workflows, customer records and payment processes.", number: "03", image: "/section-images/why-security.png" },
-  { title: "Management", tagline: "Get Paid. Stay in Control.", description: "Manage debit orders, payment collections, reconciliation and customer accounts from one connected platform.", number: "04", image: "/section-images/why-recovery.png" },
-  { title: "Database & Finance", tagline: "Turn Your Database Into Growth.", description: "Manage existing members, identify upsell opportunities, reactivate customers and track performance through reporting dashboards.", number: "05", image: "/section-images/why-reliability.png" },
+  { title: "Marketing", tagline: "More Sales. Less Friction.", description: "Turn marketing traffic into completed applications with conversion-focused funnels and streamlined customer journeys.", number: "01", image: "/section-images/funelx1200.png", icon: "/section-images/funel1x512.png" },
+  { title: "Funnels", tagline: "Applications in Under 60 Seconds.", description: "Make it easier for customers to apply with fast digital forms, automatic or manual approvals, and structured onboarding.", number: "02", image: "/section-images/applx1200.png", icon: "/section-images/appl2x512.png" },
+  { title: "Applications", tagline: "Automate the Work Behind Every Sale.", description: "Reduce repetitive administration with automated handovers, approval workflows, customer records and payment processes.", number: "03", image: "/section-images/autox1200.png", icon: "/section-images/auto3x512.png" },
+  { title: "Management", tagline: "Get Paid. Stay in Control.", description: "Manage debit orders, payment collections, reconciliation and customer accounts from one connected platform.", number: "04", image: "/section-images/payx1200.png", icon: "/section-images/pay4x512.png" },
+  { title: "Database & Finance", tagline: "Turn Your Database Into Growth.", description: "Manage existing members, identify upsell opportunities, reactivate customers and track performance through reporting dashboards.", number: "05", image: "/section-images/dbx1200.png", icon: "/section-images/db5x512.png" },
 ];
 ---
 
 <BaseLayout title="Kervox | One Platform. Total Control." description="Kervox connects every stage of your business into one operating platform.">
   <a href="#services" class="sr-only z-50 rounded-lg bg-white px-4 py-3 font-semibold text-blue-700 focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:shadow-lg">Skip to platform details</a>
-  <main class="min-h-screen bg-background text-foreground">
+  <main id="top" class="min-h-screen bg-background text-foreground">
     <header class="absolute inset-x-0 top-0 z-40 px-5 py-5 md:px-8">
       <div class="mx-auto flex max-w-7xl items-center justify-between">
         <a href="/" aria-label="Kervox home" class="kervox-wordmark text-[58px] leading-none md:absolute md:left-[78px] md:translate-y-[60px]"><span>KERVO</span><span class="kervox-wordmark__accent">X</span></a>
@@ -54,10 +54,11 @@ const whyItems = [
       <div class="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 text-sm text-slate-600 md:flex-row md:items-center md:justify-between md:px-8">
         <p class="font-semibold text-slate-950">KERVOX</p>
         <nav class="flex flex-wrap gap-x-6 gap-y-3" aria-label="Footer navigation">
+          <a class="transition hover:text-sky-700" href="#top">Back to Top</a>
           <a class="transition hover:text-sky-700" href="#services">Platform</a>
           <a class="transition hover:text-sky-700" href="#why">Why Kervox</a>
+          <a class="transition hover:text-sky-700" href="https://www.kervox.dev/packages">View 3 options</a>
           <a class="transition hover:text-sky-700" href="https://wa.me/27714329190?text=Hi%20Kervox%2C%20I%27d%20like%20to%20book%20a%20demo." target="_blank" rel="noreferrer">Book a Demo</a>
-          <a class="transition hover:text-sky-700" href="/privacy">Privacy</a>
         </nav>
         <p>&copy; 2026 Kervox. All rights reserved.</p>
       </div>

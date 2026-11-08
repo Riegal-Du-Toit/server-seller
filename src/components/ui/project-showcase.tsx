@@ -76,13 +76,13 @@ export function ProjectShowcase({
   };
 
   return (
-    <section id={id} className="border-b border-slate-200 bg-white px-5 py-20 md:px-8 md:py-28">
+    <section className="border-b border-slate-200 bg-white px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto grid max-w-6xl grid-cols-[64px_minmax(0,1fr)] gap-5 md:grid-cols-[96px_minmax(0,1fr)] md:gap-8">
         <aside>
           <p className="sticky top-8 rotate-180 text-[56px] font-black italic leading-none text-blue-600 [writing-mode:vertical-rl] md:text-[80px]" style={{ fontFamily: sectionFont }}>{label}</p>
         </aside>
 
-        <div ref={containerRef} onMouseMove={handleMouseMove} className="relative w-full max-w-2xl justify-self-center text-center">
+        <div id={id} ref={containerRef} onMouseMove={handleMouseMove} className="relative w-full max-w-2xl justify-self-center text-center">
           <p className="text-sm font-medium uppercase text-slate-500">{eyebrow}</p>
           <h2 className="mx-auto mt-3 max-w-xl text-2xl font-semibold text-slate-950 md:text-4xl">{heading}</h2>
           {intro && <div className="mx-auto mt-6 max-w-2xl space-y-3 text-sm leading-6 text-slate-600 md:text-base md:leading-7">{intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>}

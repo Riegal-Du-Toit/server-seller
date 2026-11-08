@@ -121,7 +121,7 @@ export default function HeroScrollSequence() {
             <span className="mt-1 text-xs leading-4 text-slate-600 md:text-sm">Find the version that fits your business.</span>
           </a>
           <div className="mt-5 flex flex-wrap gap-3 md:mt-6">
-            <a href="https://www.kervox.dev/packages" className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">Explore Plans</a>
+            <a href="https://www.kervox.dev/packages" className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">View 3 options</a>
             <a href="https://wa.me/27714329190?text=Hi%20Kervox%2C%20I%27d%20like%20to%20book%20a%20demo." target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1da851]"><MessageCircle className="size-4" />Book a Demo on WhatsApp</a>
           </div>
         </div>
