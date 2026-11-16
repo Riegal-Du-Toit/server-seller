@@ -19,17 +19,17 @@ export default function ClientTestimonials() {
   const goPrevious = () => setActiveIndex((index) => (index - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section id="clients" className="overflow-visible border-t border-slate-200 bg-white py-20 md:pb-16 md:pt-28" aria-labelledby="clients-heading">
-      <div className="relative mx-auto grid max-w-6xl grid-cols-[64px_1fr] gap-6 px-5 md:grid-cols-[96px_1fr] md:gap-12 md:px-8">
-        <aside className="flex justify-center border-r border-slate-200 pr-4 md:h-[300px] md:overflow-visible md:pr-7">
-          <p className="rotate-180 text-[64px] font-black italic leading-none text-blue-600 [writing-mode:vertical-rl] md:translate-y-[95px] md:text-[80px]" style={{ fontFamily: sectionFont }}>CURRENT CLIENTS</p>
+    <section id="clients" className="overflow-visible border-t border-slate-200 bg-white py-16 md:pb-16 md:pt-28" aria-labelledby="clients-heading">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-6 px-5 md:grid-cols-[96px_1fr] md:gap-12 md:px-8">
+        <aside className="border-b border-slate-200 pb-4 md:flex md:h-[300px] md:justify-center md:overflow-visible md:border-b-0 md:border-r md:pb-0 md:pr-7">
+          <p className="text-[clamp(1.9rem,8.5vw,2.8rem)] font-black italic leading-none text-blue-600 md:translate-y-[95px] md:rotate-180 md:text-[80px] md:[writing-mode:vertical-rl]" style={{ fontFamily: sectionFont }}>CURRENT CLIENTS</p>
         </aside>
         <div className="relative overflow-hidden py-5 md:py-10">
           <div className="relative z-10 max-w-3xl">
-            <div className="mb-9 flex items-center gap-4"><span className="h-px w-10 bg-blue-600" /><span className="text-xl font-black italic uppercase text-blue-600" style={{ fontFamily: sectionFont }}>{current.category}</span></div>
+            <div className="mb-9 hidden items-center gap-4 md:flex"><span className="h-px w-10 bg-blue-600" /><span className="text-xl font-black italic uppercase text-blue-600" style={{ fontFamily: sectionFont }}>{current.category}</span></div>
             <AnimatePresence mode="wait" initial={false}>
               <motion.blockquote key={activeIndex} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.45 }}>
-                <p id="clients-heading" className="text-3xl font-medium leading-tight text-slate-950 md:text-5xl">&ldquo;{current.quote}&rdquo;</p>
+                <p id="clients-heading" className="text-2xl font-medium leading-tight text-slate-950 md:text-5xl">&ldquo;{current.quote}&rdquo;</p>
               </motion.blockquote>
             </AnimatePresence>
             <div className="mt-12 flex flex-wrap items-end justify-between gap-8">

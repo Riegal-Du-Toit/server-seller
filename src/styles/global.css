@@ -96,6 +96,10 @@ body {
   animation: cta-marquee-scroll 16s linear infinite;
 }
 
+@media (max-width: 767px) and (max-height: 700px) {
+  .hero-scroll-prompt { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cta-marquee {
     animation: none;

@@ -76,10 +76,10 @@ export function ProjectShowcase({
   };
 
   return (
-    <section className="border-b border-slate-200 bg-white px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto grid max-w-6xl grid-cols-[64px_minmax(0,1fr)] gap-5 md:grid-cols-[96px_minmax(0,1fr)] md:gap-8">
+    <section className="border-b border-slate-200 bg-white px-5 py-16 md:px-8 md:py-28">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-7 md:grid-cols-[96px_minmax(0,1fr)] md:gap-8">
         <aside>
-          <p className="sticky top-8 rotate-180 text-[56px] font-black italic leading-none text-blue-600 [writing-mode:vertical-rl] md:text-[80px]" style={{ fontFamily: sectionFont }}>{label}</p>
+          <p className="text-[clamp(2rem,10vw,3.25rem)] font-black italic leading-none text-blue-600 md:sticky md:top-8 md:rotate-180 md:text-[80px] md:[writing-mode:vertical-rl]" style={{ fontFamily: sectionFont }}>{label}</p>
         </aside>
 
         <div id={id} ref={containerRef} onMouseMove={handleMouseMove} className="relative w-full max-w-2xl justify-self-center text-center">
@@ -127,7 +127,7 @@ export function ProjectShowcase({
               </div>
             ))}
           </div>
-          {closing && <p className="mx-auto mt-10 max-w-2xl whitespace-nowrap text-xl font-semibold leading-8 text-slate-950 md:text-2xl">
+          {closing && <p className="mx-auto mt-10 max-w-2xl text-balance text-xl font-semibold leading-8 text-slate-950 md:text-2xl">
             {closing.endsWith("One platform.") ? <>{closing.slice(0, -"One platform.".length)}<br /><AnimatedUnderlineText text="One Platform." className="mt-2 text-3xl font-bold text-blue-600 md:text-4xl" /></> : closing}
           </p>}
         </div>

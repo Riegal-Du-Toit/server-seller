@@ -101,12 +101,12 @@ export default function HeroScrollSequence() {
   };
 
   return (
-    <section ref={sectionRef} className="h-[700vh] bg-white">
-      <div className="sticky top-0 h-screen overflow-hidden bg-white">
+    <section ref={sectionRef} className="h-[500svh] bg-white md:h-[700vh]">
+      <div className="sticky top-0 h-svh overflow-hidden bg-white md:h-screen">
         <img src="/hero-bg-no-beams.png" alt="Kervox connected business platform" loading="eager" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover lg:origin-[68%_64%] lg:translate-x-[calc(2.4%+95px)] lg:translate-y-[calc(-11%-15px)] lg:scale-[1.4835]" />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white/50 lg:hidden" style={{ opacity: 1 - headingProgress }} />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white/60 lg:hidden" style={{ opacity: 1 - headingProgress }} />
         <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 hidden w-[58%] bg-[linear-gradient(90deg,rgba(255,255,255,0.95)_0%,rgba(255,255,255,0.90)_60%,transparent_100%)] lg:block" style={{ opacity: 1 - headingProgress }} />
-        <div className="absolute left-[5.7vw] top-[max(5.5rem,12svh)] z-30 w-[min(88vw,720px)] md:top-[22vh] lg:top-[23vh]" inert={headingProgress >= 0.99} style={{ opacity: 1 - headingProgress, transform: `translateX(${-headingProgress * 130}vw)`, pointerEvents: headingProgress >= 0.99 ? "none" : "auto" }}>
+        <div className="absolute left-[5.7vw] top-[max(5.5rem,12svh)] z-30 w-[min(88vw,720px)] max-[350px]:top-[4.75rem] md:top-[22vh] lg:top-[23vh]" inert={headingProgress >= 0.99} style={{ opacity: 1 - headingProgress, transform: `translateX(${-headingProgress * 130}vw)`, pointerEvents: headingProgress >= 0.99 ? "none" : "auto" }}>
           <p className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-700 sm:text-[11px] lg:text-xs">
             The complete customer acquisition &amp; management platform
           </p>
@@ -116,11 +116,11 @@ export default function HeroScrollSequence() {
           </h1>
           <p className="mt-4 max-w-[650px] text-sm leading-6 text-slate-600 max-[380px]:mt-3 max-[380px]:text-[13px] max-[380px]:leading-5 md:mt-5 md:text-base md:leading-7 lg:text-lg">Run marketing campaigns, convert visitors through high-performing funnels, capture applications in under 60 seconds, and automate approvals, onboarding, payments and member management.</p>
           <p className="mt-4 text-sm font-medium text-blue-800 md:mt-5 md:text-base">One connected system. From acquisition to ongoing operations.</p>
-          <a href="https://www.kervox.dev/packages" className="mt-5 inline-flex max-w-fit flex-col border-l-2 border-blue-600 pl-3 text-left transition hover:border-blue-800">
+          <a href="https://www.kervox.dev/packages" className="mt-5 inline-flex max-w-fit flex-col border-l-2 border-blue-600 pl-3 text-left transition hover:border-blue-800 max-[350px]:mt-3">
             <span className="text-[10px] font-bold uppercase tracking-[.16em] text-blue-700">3 Versions Available · Starting from {startingPrice}/month</span>
             <span className="mt-1 text-xs leading-4 text-slate-600 md:text-sm">Find the version that fits your business.</span>
           </a>
-          <div className="mt-5 flex flex-wrap gap-3 md:mt-6">
+          <div className="mt-5 flex flex-wrap gap-3 max-[350px]:mt-4 max-[350px]:gap-2 md:mt-6">
             <a href="https://www.kervox.dev/packages" className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">View 3 options</a>
             <a href="https://wa.me/27714329190?text=Hi%20Kervox%2C%20I%27d%20like%20to%20book%20a%20demo." target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1da851]"><MessageCircle className="size-4" />Book a Demo on WhatsApp</a>
           </div>
@@ -130,7 +130,7 @@ export default function HeroScrollSequence() {
           href="#services"
           aria-label="Scroll down to explore more information"
           tabIndex={progress < 0.07 ? 0 : -1}
-          className="absolute bottom-7 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.24em] text-slate-600 transition-opacity duration-300 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600 md:bottom-9"
+          className="hero-scroll-prompt absolute bottom-7 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.24em] text-slate-600 transition-opacity duration-300 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600 md:bottom-9"
           style={{ opacity: Math.max(0, 1 - progress / 0.07), pointerEvents: progress < 0.07 ? "auto" : "none" }}
         >
           <span>Scroll to explore</span>
@@ -145,14 +145,14 @@ export default function HeroScrollSequence() {
             const opacity = Math.max(0, 1 - Math.abs(offset));
             return (
               <div key={card.title} className="absolute inset-0 transition-[transform,opacity] duration-500 ease-out" style={{ opacity, transform: `translateX(${offset * 112}%)`, pointerEvents: opacity > 0.8 ? "auto" : "none" }}>
-                <NotchedProjectCard className="h-full w-full" href="#contact" title={card.title} description={card.description} image={card.image} imageAlt={`${card.title} dashboard`} imageFit="cover" badge={String(index + 1).padStart(2, "0")} variant="hero" surface="#2563eb" accent="#2563eb" />
+                <NotchedProjectCard className="h-full w-full rounded-[30px] bg-white/80 p-3 shadow-lg backdrop-blur-sm md:rounded-none md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none" href="#contact" title={card.title} description={card.description} image={card.image} imageAlt={`${card.title} dashboard`} imageFit="cover" badge={String(index + 1).padStart(2, "0")} variant="hero" surface="#2563eb" accent="#2563eb" />
               </div>
             );
           })}
-          <div className="absolute -bottom-10 right-[124px] flex items-center gap-1.5">
-            <button type="button" aria-label="Show previous platform screen" onClick={() => moveToCard(Math.max(0, activeCard - 1))} disabled={activeCard === 0} className="grid size-[30px] place-items-center rounded-full border border-blue-200 bg-white text-blue-700 shadow-sm transition hover:border-blue-600 hover:bg-blue-50 disabled:cursor-not-allowed disabled:opacity-35"><ArrowLeft className="size-3" /></button>
+          <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-2 md:-bottom-10 md:left-auto md:right-[124px] md:translate-x-0 md:gap-1.5">
+            <button type="button" aria-label="Show previous platform screen" onClick={() => moveToCard(Math.max(0, activeCard - 1))} disabled={activeCard === 0} className="grid size-11 place-items-center rounded-full border border-blue-200 bg-white text-blue-700 shadow-sm transition hover:border-blue-600 hover:bg-blue-50 disabled:cursor-not-allowed disabled:opacity-35 md:size-[30px]"><ArrowLeft className="size-4 md:size-3" /></button>
             <span className="min-w-9 text-center text-[9px] font-bold tracking-[0.16em] text-slate-600">{String(activeCard + 1).padStart(2, "0")} / 05</span>
-            <button type="button" aria-label="Show next platform screen" onClick={() => moveToCard(Math.min(cards.length - 1, activeCard + 1))} disabled={activeCard === cards.length - 1} className="grid size-[30px] place-items-center rounded-full bg-blue-600 text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-35"><ArrowRight className="size-3" /></button>
+            <button type="button" aria-label="Show next platform screen" onClick={() => moveToCard(Math.min(cards.length - 1, activeCard + 1))} disabled={activeCard === cards.length - 1} className="grid size-11 place-items-center rounded-full bg-blue-600 text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-35 md:size-[30px]"><ArrowRight className="size-4 md:size-3" /></button>
           </div>
         </div>
         {activeCard === cards.length - 1 && cardsVisible > 0.8 && <div className="absolute bottom-7 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-1.5 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.24em] text-blue-800 md:bottom-9"><span>Scroll to view more</span><svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 motion-safe:animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg></div>}
